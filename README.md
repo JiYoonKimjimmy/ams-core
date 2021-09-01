@@ -53,3 +53,25 @@
   - 시험별 합격율 통계
   - 시험별 점수 통계
   - 학생 연령별 점수 통계
+
+---
+
+## Project Database 구조
+### [EMS Database Modeling](./docs/database/ems_database.md)
+### 학생 관련 Table 목록
+- 학생 정보 Table
+- 학생 부모 정보 Table
+
+### 시험 관련 Table 목록
+- 시험 정보 Table
+- 시험 일정 Table
+- 시험 관리 기관 정보 Table
+- 시험 기타 정보 Table (시험 접수 방법 등 컨텐츠 관리)
+
+## Mapping 관련 Table 목록
+- 학생 시험 참가 목록 Table
+- 학생 시험 결과 목록 Table
+
+## 이력 관련 Table 목록
+- 학생 시험 상태 변경 이력 Table
+- 학생 시험 상태 알림 이력 Table

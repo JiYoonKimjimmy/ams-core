@@ -24,6 +24,9 @@
 - ORM vs MyBatis Query Mapping Framework 차이?
 - Spring 기반 프로젝트의 Hibernate API?
 - ORM 단점 및 보안점
+- Persistence? 
+- 동시성 문제?
+- 1:N 문제?
 #### Gradle
 - Build tool 개념
 - Gradle vs Maven 차이
@@ -33,6 +36,7 @@
 #### ETC
 - MSA Architecture 구조
 - TDD 프로그래밍
+- 효율적인 CI/CD
 
 ---
 
