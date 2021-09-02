@@ -46,7 +46,7 @@
 | START_DATE | 시작 일자 | DATE |
 | END_DATE | 종료 일자 | DATE |
 
-### `EXAM_OWNER_AGENCY` 시험 관리 기관 정보 Table
+### `EXAM_MANAGEMENT` 시험 관리 기관 정보 Table
 | Column | Name | Type | 비고 |
 | --- | --- | --- | --- |
 | ID | 시험 관리 기관 ID | NUMBER | `PK` - Auto increment sequence |
