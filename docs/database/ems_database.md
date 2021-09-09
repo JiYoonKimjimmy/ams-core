@@ -16,6 +16,7 @@
 | NAME | 이름 | VARCHAR2 |
 | MOBILE_NUMBER | 휴대폰 번호 | VARCHAR2 |
 | DATE_OF_BIRTH | 생년월일 | VARCHAR2 | format : `YYYYMMDD` |
+| GENDER | 성별 | CHAR |
 | SCHOOL | 학교 | VARCHAR2 | 
 | GRADE | 학년 | CHAR |
 
