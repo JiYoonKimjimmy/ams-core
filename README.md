@@ -19,7 +19,7 @@
 - Gradle
 - Spring Boot
 - Spring data JPA
-- RDBMS (MariaDb or PostgreSQL)
+- MariaDB
 
 **(추가된 구성은 이어서 작성 필수..)**
 
