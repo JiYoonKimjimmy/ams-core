@@ -16,6 +16,7 @@
 | NAME | 이름 | VARCHAR2 |
 | MOBILE_NUMBER | 휴대폰 번호 | VARCHAR2 |
 | DATE_OF_BIRTH | 생년월일 | VARCHAR2 | format : `YYYYMMDD` |
+| GENDER | 성별 | CHAR |
 | SCHOOL | 학교 | VARCHAR2 | 
 | GRADE | 학년 | CHAR |
 
@@ -46,7 +47,7 @@
 | START_DATE | 시작 일자 | DATE |
 | END_DATE | 종료 일자 | DATE |
 
-### `EXAM_OWNER_AGENCY` 시험 관리 기관 정보 Table
+### `EXAM_MANAGEMENT` 시험 관리 기관 정보 Table
 | Column | Name | Type | 비고 |
 | --- | --- | --- | --- |
 | ID | 시험 관리 기관 ID | NUMBER | `PK` - Auto increment sequence |
