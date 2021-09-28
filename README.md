@@ -2,6 +2,7 @@
 ## EMS (시험 관리 서비스)
 - 학생별 시험 일정/완료 여부 관리 서비스의 Core System 을 담당한다.<br>
 - 학생 등록, 시험 등록 및 완료 여부 등 관리에 필요한 항목들을 사용자가 추가하고, 관리한다.<br>
+- 수업별 학생 출석을 관리한다.
 
 ## Project 목적
 - `Kotiln` + `Spring Boot` 기반의 `REST API` Core System 을 구축
@@ -13,6 +14,7 @@
 - 시험 정보 관리
 - 시험 일정 관리
 - 시험 성과 관리
+- 학생 출석 관리
 
 ## Project 구성
 - Kotlin
@@ -54,6 +56,11 @@
   - 시험별 점수 통계
   - 학생 연령별 점수 통계
 
+### 학생 출석 관리 (TODO)
+- 수업별 학생 참여 목록 관리
+- 수업별 학생 출석 관리
+- 결석 학생 보강 수업 관리
+
 ---
 
 ## Project Database 구조
@@ -68,10 +75,18 @@
 - 시험 관리 기관 정보 Table
 - 시험 기타 정보 Table (시험 접수 방법 등 컨텐츠 관리)
 
-## Mapping 관련 Table 목록
+### Mapping 관련 Table 목록
 - 학생 시험 참가 목록 Table
 - 학생 시험 결과 목록 Table
 
-## 이력 관련 Table 목록
+### 이력 관련 Table 목록
 - 학생 시험 상태 변경 이력 Table
 - 학생 시험 상태 알림 이력 Table
+
+### 출석 관련 Table 목록 (TODO)
+- 정규 수업 정보 Table
+- 보강 수업 정보 Table
+- 선생님 정보 Table
+- 학생 출석 목록 Table
+- 학생 결석 목록 Table
+- 결석 학생 보강 수업 정보 Table
