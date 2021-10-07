@@ -17,9 +17,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.4")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.4")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
+//    implementation("org.springframework.boot:spring-boot-starter-data-jdbc:2.5.5")
+//    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.3")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -30,7 +32,7 @@ dependencies {
 
     runtimeOnly("org.mariadb:r2dbc-mariadb:1.0.2")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.4")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.5")
 }
 
 tasks.withType<KotlinCompile> {
