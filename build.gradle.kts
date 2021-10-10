@@ -20,17 +20,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
-//    implementation("org.springframework.boot:spring-boot-starter-data-jdbc:2.5.5")
-//    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.3")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
 
+    runtimeOnly("org.mariadb:r2dbc-mariadb:1.0.2")
+
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
-
-    runtimeOnly("org.mariadb:r2dbc-mariadb:1.0.2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.5")
 }

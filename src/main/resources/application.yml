@@ -1,4 +1,3 @@
-# jpa
 spring:
 # r2dbc
   r2dbc:
