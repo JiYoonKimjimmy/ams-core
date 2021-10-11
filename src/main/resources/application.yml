@@ -1,5 +1,6 @@
+# spring
 spring:
-# r2dbc
+  # r2dbc
   r2dbc:
     url: r2dbc:mariadb://maria-database-1.ciroumm1ym9r.ap-northeast-2.rds.amazonaws.com:3306
     name: EMS
@@ -9,7 +10,7 @@ spring:
       max-size: 100
       validation-query: SELECT 1
 
-# log
+# logging
 logging:
   level:
     org.springframework.r2dbc: DEBUG

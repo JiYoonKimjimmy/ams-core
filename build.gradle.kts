@@ -23,9 +23,9 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
 
-    runtimeOnly("org.mariadb:r2dbc-mariadb:1.0.2")
+    implementation("org.mariadb:r2dbc-mariadb:1.0.2")
 
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
