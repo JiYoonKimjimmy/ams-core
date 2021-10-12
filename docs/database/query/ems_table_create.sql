@@ -1,27 +1,27 @@
 -- 1. 'STUDENTS' 생성
-create table students (
-    id int not null primary key,
-    name varchar(20) not null,
-    mobile_number varchar(11) not null,
-    date_of_birth varchar(8) not null,
-    gender char(2) not null,
-    school varchar(20),
-    grade char(2),
-    version int,
-    created date,
-    updated date
-) default charset = utf8;
+CREATE TABLE STUDENTS (
+    ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(20) NOT NULL,
+    MOBILE_NUMBER VARCHAR(11) NOT NULL,
+    DATE_OF_BIRTH VARCHAR(8) NOT NULL,
+    GENDER CHAR(2) NOT NULL,
+    SCHOOL VARCHAR(20),
+    GRADE CHAR(2),
+    VERSION INT,
+    CREATED DATE,
+    UPDATED DATE
+) DEFAULT CHARSET = UTF8;
 
 -- 2. 'STUDENTS_PARENTS' 생성
-create table students_parents (
-    id int not null primary key,
-    student_id int not null,
-    name varchar(20) not null,
-    mobile_number varchar(11) not null,
-    version int,
-    created date,
-    updated date,
-    foreign key (student_id) references students(id)
+CREATE TABLE STUDENTS_PARENTS (
+    ID INT NOT NULL PRIMARY KEY,
+    STUDENT_ID INT NOT NULL,
+    NAME VARCHAR(20) NOT NULL,
+    MOBILE_NUMBER VARCHAR(11) NOT NULL,
+    VERSION INT,
+    CREATED DATE,
+    UPDATED DATE,
+    FOREIGN KEY (STUDENT_ID) REFERENCES STUDENTS(ID)
 );
 
 
