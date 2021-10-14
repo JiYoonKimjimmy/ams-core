@@ -8,24 +8,29 @@ import java.time.LocalDate
 @Table("STUDENTS")
 data class Students(
     @Id
-    @Column("ID")
     var id: Long? = null,
-    @Column("NAME")
     var name: String? = null,
-    @Column("MOBILE_NUMBER")
     var mobileNumber: String? = null,
-    @Column("DATE_OF_BIRTH")
     var dateOfBirth: String? = null,
-    @Column("GENDER")
     var gender: String? = null,
-    @Column("SCHOOL")
     var school: String? = null,
-    @Column("GRADE")
     var grade: String? = null,
-    @Column("VERSION")
+    var status: StatusEnum = StatusEnum.ACTIVE,
     var version: Int = 0,
-    @Column("CREATED")
     var created: LocalDate = LocalDate.now(),
-    @Column("UPDATED")
     var updated: LocalDate = LocalDate.now()
 )
+
+enum class GenderEnum(val value: String) {
+    Male("M"),
+    Female("F");
+
+    companion object {
+        fun find(value: String): GenderEnum = values().find { it.value == value }!!
+    }
+}
+
+enum class StatusEnum {
+    ACTIVE,
+    DELETED
+}
