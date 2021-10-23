@@ -58,13 +58,23 @@
 ### `CLASS_SCHEDULES` 수업 일정 정보 Table
 | Column | Name | Type | 비고 |
 | --- | --- | --- | --- |
-| ID | 정규 수업 ID | INT | `PK` - Auto increment sequence |
+| ID | 수업 일정 ID | INT | `PK` - Auto increment sequence |
 | CLASS_ID | 수업 ID | INT | `FK` - `CLASSES`.`ID` |
 | TYPE | 수업 구분 | VARCHAR2 | `REGULAR`: 정규, `MAKEUP`: 보강, `SPECIAL`: 특강 |
 | YEAR | 연도 | VARCHAR2 | `YYYY` |
 | MONTH | 월 | VARCHAR2 | `MM` |
 | DAY | 일 | VARCHAR2 | `DD` |
 | STATUS | 상태 | VARCHAR2 | `READY`: 준비(`default`), `FINISHED`: 완료, `CANCELED`: 취소 |
+
+---
+
+## 출석 관련 Table 목록
+### `CLASS_ATTENDANCE` 학생 출석 목록 Table
+| Column | Name | Type | 비고 |
+| --- | --- | --- | --- |
+| ID | 출석 ID | INT | `PK` - Auto increment sequence |
+| STUDENT_ID | 학생 ID | INT | `FK` - `STUDENTS`.`ID` |
+| CLASS_SCHEDULE_ID | 수업 일정 ID | INT | `FK` - `CLASS_SCHEDULES`.`ID` |
 
 ---
 

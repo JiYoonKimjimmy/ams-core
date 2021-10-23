@@ -82,10 +82,7 @@
 - 수업 기본 정보 Table
 - 정규 수업 관리 Table
 - 보강 수업 관리 Table
-
-### 출석 관련 Table 목록
 - 학생 출석 목록 Table
-- 결석 학생 보강 수업 정보 Table
 
 ### 시험 관련 Table 목록
 - 시험 정보 Table
