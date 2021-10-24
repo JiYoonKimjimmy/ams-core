@@ -72,7 +72,7 @@
 ---
 
 ## Project Database 구조
-### [EMS Database Modeling](./docs/database/ems_database.md)
+### [EMS Database Modeling](./docs/database/ams_database.md)
 ### 학생 관련 Table 목록
 - 학생 정보 Table
 - 학생 부모 정보 Table
