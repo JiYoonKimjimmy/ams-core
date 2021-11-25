@@ -1,1 +1,1 @@
-rootProject.name = "ems-core"
+rootProject.name = "ams-core"

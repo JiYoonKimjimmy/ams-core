@@ -1,5 +1,7 @@
 # EMS Database Modeling
 
+![AMS DB ERD](images/ams_database_erd.png)
+
 ***모든 Table 에는 아래와 같은 `Column` 필수로 추가***
 
 | Column | Name | Type | 비고 |
