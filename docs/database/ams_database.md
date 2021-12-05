@@ -6,7 +6,6 @@
 
 | Column | Name | Type | 비고 |
 | --- | --- | --- | --- |
-| VERSION | 수정 버전 | NUMBER | `ROW` 수정 버전 | 
 | CREATED | 생성 일자 | DATE |
 | UPDATED | 수정 일자 | DATE |
 

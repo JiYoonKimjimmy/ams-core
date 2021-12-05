@@ -3,23 +3,27 @@ package com.ems.core.entity
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
-import java.time.LocalDate
 
 @Table("STUDENTS")
-data class Students(
+class Students(
     @Id
+    @Column("ID")
     var id: Long? = null,
-    var name: String? = null,
-    var mobileNumber: String? = null,
-    var dateOfBirth: String? = null,
-    var gender: String? = null,
-    var school: String? = null,
-    var grade: String? = null,
-    var status: StatusEnum = StatusEnum.ACTIVE,
-    var version: Int = 0,
-    var created: LocalDate = LocalDate.now(),
-    var updated: LocalDate = LocalDate.now()
-)
+    @Column("NAME")
+    val name: String,
+    @Column("MOBILE_NUMBER")
+    val mobileNumber: String,
+    @Column("DATE_OF_BIRTH")
+    val dateOfBirth: String,
+    @Column("GENDER")
+    val gender: String,
+    @Column("SCHOOL")
+    val school: String,
+    @Column("GRADE")
+    val grade: String,
+    @Column("STATUS")
+    val status: StatusEnum
+) : BaseEntity()
 
 enum class GenderEnum(val value: String) {
     Male("M"),

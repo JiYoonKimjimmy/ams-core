@@ -14,9 +14,9 @@ class StudentsRouter(private val handler: StudentsHandler) {
     fun routerFunction() = nest(path("/api"),
         router {
             listOf(
-                POST("/student", handler::getOne),
-                POST("/students", handler::save),
-                GET("/students", handler::getAll)
+                GET("/student/{id}", handler::getOne),
+                GET("/students", handler::getAll),
+                POST("/students", handler::save)
             )
         }
     )

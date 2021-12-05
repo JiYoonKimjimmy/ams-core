@@ -18,7 +18,6 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
