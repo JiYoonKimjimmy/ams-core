@@ -3,9 +3,11 @@ package com.ems.core.entity
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import javax.persistence.FetchType
+import javax.persistence.OneToMany
 
 @Table("STUDENTS")
-class Students(
+class Student(
     @Id
     @Column("ID")
     var id: Long? = null,
@@ -22,7 +24,11 @@ class Students(
     @Column("GRADE")
     val grade: String,
     @Column("STATUS")
-    val status: StatusEnum
+    val status: StatusEnum,
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "")
+    val parents: Parents?
+
 ) : BaseEntity()
 
 enum class GenderEnum(val value: String) {

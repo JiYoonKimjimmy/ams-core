@@ -6,8 +6,8 @@
 
 | Column | Name | Type | 비고 |
 | --- | --- | --- | --- |
-| CREATED | 생성 일자 | DATE |
-| UPDATED | 수정 일자 | DATE |
+| CREATED | 생성 일자 | DATETIME |
+| UPDATED | 수정 일자 | DATETIME |
 
 ## 학생 관련 Table 목록
 ### `STUDENTS` 학생 정보 Table
@@ -29,6 +29,7 @@
 | STUDENT_ID | 학생 ID | INT | `FK` - `STUDENTS`.`ID` |
 | NAME | 성명 | VARCHAR2 |
 | MOBILE_NUMBER | 휴대폰 번호 | VARCHAR2 |
+| GENDER | 성별 | CHAR | `M`: 남성, `F`: 여성 |
 | STATUS | 상태 | VARCHAR2 | `ACTIVE`: 정상, `DELETED`: 탈퇴 |
 
 ---
