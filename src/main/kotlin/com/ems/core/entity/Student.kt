@@ -1,9 +1,12 @@
 package com.ems.core.entity
 
+import com.ems.core.common.enum.GenderEnum
+import com.ems.core.common.enum.StatusEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import javax.persistence.FetchType
+import javax.persistence.JoinColumn
 import javax.persistence.OneToMany
 
 @Table("STUDENTS")
@@ -18,7 +21,7 @@ class Student(
     @Column("DATE_OF_BIRTH")
     val dateOfBirth: String,
     @Column("GENDER")
-    val gender: String,
+    val gender: GenderEnum,
     @Column("SCHOOL")
     val school: String,
     @Column("GRADE")
@@ -26,21 +29,8 @@ class Student(
     @Column("STATUS")
     val status: StatusEnum,
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "")
-    val parents: Parents?
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STUDENT_ID")
+    val parents: MutableList<Parents>?
 
 ) : BaseEntity()
-
-enum class GenderEnum(val value: String) {
-    Male("M"),
-    Female("F");
-
-    companion object {
-        fun find(value: String): GenderEnum = values().find { it.value == value }!!
-    }
-}
-
-enum class StatusEnum {
-    ACTIVE,
-    DELETED
-}

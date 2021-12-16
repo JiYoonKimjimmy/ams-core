@@ -1,5 +1,7 @@
 package com.ems.core.entity
 
+import com.ems.core.common.enum.GenderEnum
+import com.ems.core.common.enum.StatusEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
@@ -16,11 +18,13 @@ class Parents(
     val name: String,
     @Column("MOBILE_NUMBER")
     val mobileNumber: String,
+    @Column("GENDER")
+    val gender: GenderEnum,
     @Column("STATUS")
     val status: StatusEnum,
 
-    @JoinColumn(name = "STUDENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STUDENT_ID")
     val student: Student?
 
 ) : BaseEntity()
