@@ -1,11 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val springBootVersion = "2.6.1"
+
 plugins {
-    id("org.springframework.boot") version "2.5.4"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.5.21"
     kotlin("plugin.spring") version "1.5.21"
-    kotlin("plugin.jpa") version "1.3.61"
+    id("org.springframework.boot") version "2.6.1"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 group = "com.ams"
@@ -17,9 +18,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:$springBootVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -27,10 +27,9 @@ dependencies {
 
     implementation("org.mariadb:r2dbc-mariadb:1.0.2")
 
-    compileOnly("org.projectlombok:lombok:1.18.20")
-    annotationProcessor("org.projectlombok:lombok:1.18.20")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.12")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 }
 
 tasks.withType<KotlinCompile> {
@@ -42,16 +41,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-noArg {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-
-allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
 }

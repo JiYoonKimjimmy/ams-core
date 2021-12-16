@@ -5,12 +5,9 @@ import com.ems.core.common.enum.StatusEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
-import javax.persistence.FetchType
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
 
 @Table("PARENTS")
-class Parents(
+data class Parents(
     @Id
     @Column("ID")
     var id: Long? = null,
@@ -22,9 +19,6 @@ class Parents(
     val gender: GenderEnum,
     @Column("STATUS")
     val status: StatusEnum,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "STUDENT_ID")
-    val student: Student?
-
+    @Column("STUDENT_ID")
+    val studentId: Long
 ) : BaseEntity()

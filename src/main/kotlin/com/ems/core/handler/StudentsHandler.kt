@@ -1,6 +1,7 @@
 package com.ems.core.handler
 
 import com.ems.core.entity.Student
+import com.ems.core.model.GetStudentsResponse
 import com.ems.core.repository.StudentsRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
@@ -19,7 +20,7 @@ class StudentsHandler(
         studentsRepository.findById(request.pathVariable("id").toLong()).flatMap { ok().body(fromValue(it)) }
 
     fun getAll(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository.findAll().collect(toList()).flatMap { ok().body(fromValue(it)) }
+        studentsRepository.findAll().collect(toList()).flatMap { ok().body(fromValue(GetStudentsResponse(it))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository.saveAll(request.bodyToMono(Student::class.java)).flatMap { ok().body(fromValue(it)) }.single()
