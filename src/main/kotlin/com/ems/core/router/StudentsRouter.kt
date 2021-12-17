@@ -1,6 +1,6 @@
 package com.ems.core.router
 
-import com.ems.core.entity.Student
+import com.ems.core.entity.Students
 import com.ems.core.handler.StudentsHandler
 import com.ems.core.model.GetStudentsResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -34,7 +34,7 @@ class StudentsRouter(
             operation = Operation(
                 operationId = "getStudent",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Students::class))])]
             )
         ),
         RouterOperation(
@@ -54,8 +54,8 @@ class StudentsRouter(
             beanMethod = "save",
             operation = Operation(
                 operationId = "saveStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Students::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Students::class))])]
             )
         )
     )

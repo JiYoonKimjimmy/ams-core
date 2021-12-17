@@ -1,7 +1,7 @@
 package com.ems.core.model
 
-import com.ems.core.entity.Student
+import com.ems.core.entity.Students
 
 data class GetStudentsResponse(
-    val students: MutableList<Student>
+    val students: MutableList<Students>
 )

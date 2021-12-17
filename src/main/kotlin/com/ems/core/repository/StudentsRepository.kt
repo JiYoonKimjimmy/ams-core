@@ -1,8 +1,12 @@
 package com.ems.core.repository
 
-import com.ems.core.entity.Student
-import org.springframework.data.r2dbc.repository.Query
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import reactor.core.publisher.Mono
+import com.ems.core.entity.Students
+import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.reactive.ReactiveSortingRepository
+import reactor.core.publisher.Flux
 
-interface StudentsRepository: ReactiveCrudRepository<Student, Long>
+interface StudentsRepository : ReactiveSortingRepository<Students, Long> {
+
+    fun findAllBy(pageable: Pageable): Flux<Students>
+
+}
