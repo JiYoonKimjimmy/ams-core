@@ -3,6 +3,7 @@ package com.ems.core.router
 import com.ems.core.entity.Students
 import com.ems.core.handler.StudentsHandler
 import com.ems.core.model.GetStudentsResponse
+import com.ems.core.model.PageableModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -44,6 +45,10 @@ class StudentsRouter(
             beanMethod = "getAll",
             operation = Operation(
                 operationId = "getStudents",
+                parameters = [
+                    Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
+                    Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
+                ],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetStudentsResponse::class))])]
             )
         ),
