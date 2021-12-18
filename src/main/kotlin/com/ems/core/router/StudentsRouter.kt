@@ -1,9 +1,8 @@
 package com.ems.core.router
 
-import com.ems.core.entity.Students
+import com.ems.core.entity.Student
 import com.ems.core.handler.StudentsHandler
 import com.ems.core.model.GetStudentsResponse
-import com.ems.core.model.PageableModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -35,7 +34,7 @@ class StudentsRouter(
             operation = Operation(
                 operationId = "getStudent",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Students::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
             )
         ),
         RouterOperation(
@@ -59,8 +58,30 @@ class StudentsRouter(
             beanMethod = "save",
             operation = Operation(
                 operationId = "saveStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Students::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Students::class))])]
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+            )
+        ),
+        RouterOperation(
+            method = [RequestMethod.PUT],
+            path = "/api/student",
+            beanClass = StudentsHandler::class,
+            beanMethod = "update",
+            operation = Operation(
+                operationId = "updateStudent",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+            )
+        ),
+        RouterOperation(
+            method = [RequestMethod.DELETE],
+            path = "/api/student",
+            beanClass = StudentsHandler::class,
+            beanMethod = "delete",
+            operation = Operation(
+                operationId = "deleteStudent",
+                parameters = [Parameter(`in` = ParameterIn.QUERY, name = "id")],
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Void::class))])]
             )
         )
     )
@@ -69,7 +90,9 @@ class StudentsRouter(
             listOf(
                 GET("/student/{id}", handler::getOne),
                 GET("/students", handler::getAll),
-                POST("/student", handler::save)
+                POST("/student", handler::save),
+                PUT("/student", handler::update),
+                DELETE("/student", handler::delete)
             )
         }
     )
