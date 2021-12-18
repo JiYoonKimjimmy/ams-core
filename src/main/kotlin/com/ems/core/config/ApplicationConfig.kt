@@ -3,8 +3,10 @@ package com.ems.core.config
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import io.swagger.v3.oas.annotations.info.Info
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
 
 @Configuration
+@EnableR2dbcAuditing
 @OpenAPIDefinition(
     info = Info(
         title = "AMS Swagger",
@@ -12,4 +14,4 @@ import org.springframework.context.annotation.Configuration
         description = "Academy Management Service"
     )
 )
-class SwaggerConfig
+class ApplicationConfig

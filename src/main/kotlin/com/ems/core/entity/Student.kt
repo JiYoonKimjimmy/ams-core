@@ -7,22 +7,22 @@ import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("STUDENTS")
-data class Students(
+data class Student(
     @Id
     @Column("ID")
     var id: Long? = null,
     @Column("NAME")
-    val name: String,
+    var name: String,
     @Column("MOBILE_NUMBER")
-    val mobileNumber: String,
+    var mobileNumber: String,
     @Column("DATE_OF_BIRTH")
-    val dateOfBirth: String,
+    var dateOfBirth: String,
     @Column("GENDER")
-    val gender: GenderEnum,
+    var gender: GenderEnum,
     @Column("SCHOOL")
-    val school: String,
+    var school: String,
     @Column("GRADE")
-    val grade: String,
+    var grade: String,
     @Column("STATUS")
-    val status: StatusEnum
+    var status: StatusEnum
 ) : BaseEntity()

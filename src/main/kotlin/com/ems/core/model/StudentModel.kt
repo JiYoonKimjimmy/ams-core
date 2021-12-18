@@ -1,6 +1,6 @@
 package com.ems.core.model
 
-import com.ems.core.entity.Students
+import com.ems.core.entity.Student
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 
@@ -13,10 +13,10 @@ class GetStudentsResponse(
     override val first: Boolean,
     override val last: Boolean,
     override val empty: Boolean,
-    override val content: MutableList<Students>
-) : PageableModel<Students>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
+    override val content: MutableList<Student>
+) : PageableModel<Student>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
     companion object {
-        fun of(request: ServerRequest, content: List<Students>, totalSize: Long): GetStudentsResponse {
+        fun of(request: ServerRequest, content: List<Student>, totalSize: Long): GetStudentsResponse {
             val pageable = PageImpl(content, toPageRequest(request), totalSize)
             return GetStudentsResponse(
                 number = pageable.number,
