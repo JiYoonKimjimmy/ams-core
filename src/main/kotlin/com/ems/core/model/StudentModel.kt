@@ -4,7 +4,7 @@ import com.ems.core.entity.Students
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 
-data class GetStudentsResponse(
+class GetStudentsResponse(
     override val number: Int,
     override val size: Int,
     override val numberOfElements: Int,
