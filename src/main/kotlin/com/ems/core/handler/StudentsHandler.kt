@@ -1,8 +1,8 @@
 package com.ems.core.handler
 
-import com.ems.core.entity.Student
 import com.ems.core.model.GetStudentsResponse
 import com.ems.core.model.PageableModel
+import com.ems.core.model.StudentModel
 import com.ems.core.repository.StudentsRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
@@ -30,26 +30,14 @@ class StudentsHandler(
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
-            .saveAll(request.bodyToMono(Student::class.java))
+            .saveAll(request.bodyToMono(StudentModel::class.java).map { it.toEntity() })
             .flatMap { ok().body(fromValue(it)) }
             .single()
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository
-            .saveAll(request.bodyToMono(Student::class.java).flatMap {
-                studentsRepository.findById(it.id!!)
-                    .flatMap { old ->
-                        old.id = it.id
-                        old.name = it.name
-                        old.mobileNumber = it.mobileNumber
-                        old.dateOfBirth = it.dateOfBirth
-                        old.gender = it.gender
-                        old.school = it.school
-                        old.grade = it.grade
-                        old.status = it.status
-                        Mono.just(old)
-                    }
-            })
+        request.bodyToMono(StudentModel::class.java)
+            .flatMap { studentsRepository.findById(it.id!!).flatMap { old -> old.updateToMono(it.toEntity()) } }
+            .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
             .single()
 
