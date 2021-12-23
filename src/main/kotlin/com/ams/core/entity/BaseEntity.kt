@@ -1,4 +1,4 @@
-package com.ems.core.entity
+package com.ams.core.entity
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate

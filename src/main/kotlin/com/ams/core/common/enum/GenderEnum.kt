@@ -1,4 +1,4 @@
-package com.ems.core.common.enum
+package com.ams.core.common.enum
 
 enum class GenderEnum(val value: String) {
     M("Male"),

@@ -1,9 +1,9 @@
-package com.ems.core.handler
+package com.ams.core.handler
 
-import com.ems.core.model.GetStudentsResponse
-import com.ems.core.model.PageableModel
-import com.ems.core.model.StudentModel
-import com.ems.core.repository.StudentsRepository
+import com.ams.core.model.GetStudentsResponse
+import com.ams.core.model.PageableModel
+import com.ams.core.model.StudentModel
+import com.ams.core.repository.StudentsRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
 import org.springframework.web.reactive.function.server.ServerRequest

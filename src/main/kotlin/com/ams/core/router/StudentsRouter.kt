@@ -1,8 +1,8 @@
-package com.ems.core.router
+package com.ams.core.router
 
-import com.ems.core.entity.Student
-import com.ems.core.handler.StudentsHandler
-import com.ems.core.model.GetStudentsResponse
+import com.ams.core.entity.Student
+import com.ams.core.handler.StudentsHandler
+import com.ams.core.model.GetStudentsResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn

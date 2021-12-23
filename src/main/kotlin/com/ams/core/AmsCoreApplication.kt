@@ -1,4 +1,4 @@
-package com.ems.core
+package com.ams.core
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

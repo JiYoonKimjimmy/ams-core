@@ -1,4 +1,4 @@
-package com.ems.core.model
+package com.ams.core.model
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.reactive.function.server.ServerRequest

@@ -1,6 +1,6 @@
-package com.ems.core.repository
+package com.ams.core.repository
 
-import com.ems.core.entity.Student
+import com.ams.core.entity.Student
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import reactor.core.publisher.Flux
