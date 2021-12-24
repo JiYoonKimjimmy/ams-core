@@ -5,20 +5,30 @@ import com.ams.core.common.enum.StatusEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import reactor.core.publisher.Mono
 
 @Table("PARENTS")
 data class Parents(
     @Id
     @Column("ID")
-    var id: Long? = null,
+    var id: Long?,
     @Column("NAME")
-    val name: String,
+    var name: String?,
     @Column("MOBILE_NUMBER")
-    val mobileNumber: String,
+    var mobileNumber: String?,
     @Column("GENDER")
-    val gender: GenderEnum,
+    var gender: GenderEnum?,
     @Column("STATUS")
-    val status: StatusEnum,
+    var status: StatusEnum? = StatusEnum.ACTIVE,
     @Column("STUDENT_ID")
-    val studentId: Long
-) : BaseEntity()
+    var studentId: Long
+) : BaseEntity() {
+    fun updateToMono(request: Parents): Mono<Parents> {
+        this.name = request.name ?: this.name
+        this.mobileNumber = request.mobileNumber ?: this.mobileNumber
+        this.gender = request.gender ?: this.gender
+        this.status = request.status ?: this.status
+        this.studentId = request.studentId
+        return Mono.just(this)
+    }
+}

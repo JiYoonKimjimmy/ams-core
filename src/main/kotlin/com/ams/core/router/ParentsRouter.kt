@@ -1,8 +1,8 @@
 package com.ams.core.router
 
-import com.ams.core.entity.Student
-import com.ams.core.handler.StudentsHandler
-import com.ams.core.model.GetStudentsResponse
+import com.ams.core.entity.Parents
+import com.ams.core.handler.ParentsHandler
+import com.ams.core.model.GetParentsResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -15,84 +15,84 @@ import org.springdoc.core.annotations.RouterOperations
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.reactive.function.server.RequestPredicates.path
-import org.springframework.web.reactive.function.server.RouterFunctions.nest
+import org.springframework.web.reactive.function.server.RequestPredicates
+import org.springframework.web.reactive.function.server.RouterFunctions
 import org.springframework.web.reactive.function.server.router
 
 @Component
-class StudentsRouter(
-    val studentsHandler: StudentsHandler
+class ParentsRouter(
+    val parentsHandler: ParentsHandler
 ) {
 
     @Bean
     @RouterOperations(
         RouterOperation(
             method = [RequestMethod.GET],
-            path = "/api/student/{id}",
-            beanClass = StudentsHandler::class,
+            path = "/api/parents/{id}",
+            beanClass = ParentsHandler::class,
             beanMethod = "getOne",
             operation = Operation(
-                operationId = "getStudent",
+                operationId = "getParents",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
             )
         ),
         RouterOperation(
             method = [RequestMethod.GET],
-            path = "/api/students",
-            beanClass = StudentsHandler::class,
+            path = "/api/parents",
+            beanClass = ParentsHandler::class,
             beanMethod = "getAll",
             operation = Operation(
-                operationId = "getStudents",
+                operationId = "getParents",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
                 ],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetStudentsResponse::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetParentsResponse::class))])]
             )
         ),
         RouterOperation(
             method = [RequestMethod.POST],
-            path = "/api/student",
-            beanClass = StudentsHandler::class,
+            path = "/api/parents",
+            beanClass = ParentsHandler::class,
             beanMethod = "save",
             operation = Operation(
-                operationId = "saveStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                operationId = "saveParents",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Parents::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
             )
         ),
         RouterOperation(
             method = [RequestMethod.PUT],
-            path = "/api/student",
-            beanClass = StudentsHandler::class,
+            path = "/api/parents",
+            beanClass = ParentsHandler::class,
             beanMethod = "update",
             operation = Operation(
-                operationId = "updateStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                operationId = "updateParents",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Parents::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
             )
         ),
         RouterOperation(
             method = [RequestMethod.DELETE],
-            path = "/api/student",
-            beanClass = StudentsHandler::class,
+            path = "/api/parents",
+            beanClass = ParentsHandler::class,
             beanMethod = "delete",
             operation = Operation(
-                operationId = "deleteStudent",
+                operationId = "deleteParents",
                 parameters = [Parameter(`in` = ParameterIn.QUERY, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Void::class))])]
             )
         )
     )
-    fun studentsRouterFunction() = nest(path("/api"),
+    fun parentsRouterFunction() = RouterFunctions.nest(RequestPredicates.path("/api"),
         router {
             listOf(
-                GET("/student/{id}", studentsHandler::getOne),
-                GET("/students", studentsHandler::getAll),
-                POST("/student", studentsHandler::save),
-                PUT("/student", studentsHandler::update),
-                DELETE("/student", studentsHandler::delete)
+                GET("/parents/{id}", parentsHandler::getOne),
+                GET("/parents", parentsHandler::getAll),
+                POST("/parents", parentsHandler::save),
+                PUT("/parents", parentsHandler::update),
+                DELETE("/parents", parentsHandler::delete)
             )
         }
     )
