@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table
 import reactor.core.publisher.Mono
 
 @Table("PARENTS")
-data class Parents(
+class Parents(
     @Id
     @Column("ID")
     var id: Long?,
