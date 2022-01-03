@@ -14,6 +14,17 @@ data class ParentsModel(
     var status: StatusEnum?,
     var studentId: Long
 ) {
+    companion object {
+        fun of(parents: Parents) = ParentsModel(
+            id = parents.id,
+            name = parents.name,
+            mobileNumber = parents.mobileNumber,
+            gender = parents.gender,
+            status = parents.status,
+            studentId = parents.studentId
+        )
+    }
+
     fun toEntity() = Parents(
         id = id,
         name = name,
@@ -33,10 +44,10 @@ data class GetParentsResponse(
     override val first: Boolean,
     override val last: Boolean,
     override val empty: Boolean,
-    override val content: MutableList<Parents>
-) : PageableModel<Parents>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
+    override val content: MutableList<ParentsModel>
+) : PageableModel<ParentsModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
     companion object {
-        fun of(request: ServerRequest, content: List<Parents>, totalSize: Long): GetParentsResponse {
+        fun of(request: ServerRequest, content: List<ParentsModel>, totalSize: Long): GetParentsResponse {
             val pageable = PageImpl(content, toPageRequest(request), totalSize)
             return GetParentsResponse(
                 number = pageable.number,

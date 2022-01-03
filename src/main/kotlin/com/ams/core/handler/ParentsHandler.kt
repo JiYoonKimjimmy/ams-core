@@ -20,11 +20,12 @@ class ParentsHandler(
     fun getOne(request: ServerRequest): Mono<ServerResponse> =
         parentsRepository
             .findById(request.pathVariable("id").toLong())
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(it))) }
 
     fun getAll(request: ServerRequest): Mono<ServerResponse> =
         parentsRepository
             .findAllBy(PageableModel.toPageRequest(request))
+            .map { ParentsModel.of(it) }
             .collectList()
             .zipWith(parentsRepository.count())
             .flatMap { ok().body(fromValue(GetParentsResponse.of(request, it.t1, it.t2))) }
