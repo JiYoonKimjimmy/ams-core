@@ -3,21 +3,32 @@ package com.ams.core.model
 import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
 import com.ams.core.entity.Student
-import org.springframework.data.annotation.Id
 import org.springframework.data.domain.PageImpl
-import org.springframework.data.relational.core.mapping.Column
 import org.springframework.web.reactive.function.server.ServerRequest
 
 data class StudentModel(
-    var id: Long?,
-    var name: String?,
-    var mobileNumber: String?,
-    var dateOfBirth: String?,
-    var gender: GenderEnum?,
-    var school: String?,
-    var grade: String?,
-    var status: StatusEnum?
+    val id: Long?,
+    val name: String?,
+    val mobileNumber: String?,
+    val dateOfBirth: String?,
+    val gender: GenderEnum?,
+    val school: String?,
+    val grade: String?,
+    val status: StatusEnum?
 ) {
+    companion object {
+        fun of(student: Student) = StudentModel(
+            id = student.id,
+            name = student.name,
+            mobileNumber = student.mobileNumber,
+            dateOfBirth = student.dateOfBirth,
+            gender = student.gender,
+            school = student.school,
+            grade = student.grade,
+            status = student.status
+        )
+    }
+
     fun toEntity() = Student(
         id = id,
         name = name,
@@ -39,10 +50,10 @@ data class GetStudentsResponse(
     override val first: Boolean,
     override val last: Boolean,
     override val empty: Boolean,
-    override val content: MutableList<Student>
-) : PageableModel<Student>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
+    override val content: MutableList<StudentModel>
+) : PageableModel<StudentModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content) {
     companion object {
-        fun of(request: ServerRequest, content: List<Student>, totalSize: Long): GetStudentsResponse {
+        fun of(request: ServerRequest, content: List<StudentModel>, totalSize: Long): GetStudentsResponse {
             val pageable = PageImpl(content, toPageRequest(request), totalSize)
             return GetStudentsResponse(
                 number = pageable.number,

@@ -19,14 +19,14 @@ class StudentsHandler(
     fun getOne(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
             .findById(request.pathVariable("id").toLong())
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(StudentModel.of(it))) }
 
     fun getAll(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
             .findAllBy(PageableModel.toPageRequest(request))
             .collectList()
             .zipWith(studentsRepository.count())
-            .flatMap { ok().body(fromValue(GetStudentsResponse.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(GetStudentsResponse.of(request, it.t1.map { s -> StudentModel.of(s) }, it.t2))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
