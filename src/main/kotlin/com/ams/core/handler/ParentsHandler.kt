@@ -3,7 +3,6 @@ package com.ams.core.handler
 import com.ams.core.model.GetParentsResponse
 import com.ams.core.model.PageableModel
 import com.ams.core.model.ParentsModel
-import com.ams.core.model.StudentModel
 import com.ams.core.repository.ParentsRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
