@@ -1,4 +1,4 @@
-# EMS Database Modeling
+# AMS Database Modeling
 
 ![AMS DB ERD](images/ams_database_erd.png)
 
