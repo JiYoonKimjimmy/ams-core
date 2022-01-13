@@ -28,9 +28,6 @@ class Student(
     @Column("STATUS")
     var status: StatusEnum? = StatusEnum.ACTIVE
 ) : BaseEntity() {
-    @Transient
-    val parents: MutableList<Parents> = mutableListOf()
-
     fun updateToMono(request: Student): Mono<Student> {
         this.name = request.name ?: this.name
         this.mobileNumber = request.mobileNumber ?: this.mobileNumber
