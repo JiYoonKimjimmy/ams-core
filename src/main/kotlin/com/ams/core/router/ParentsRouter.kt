@@ -2,7 +2,7 @@ package com.ams.core.router
 
 import com.ams.core.entity.Parents
 import com.ams.core.handler.ParentsHandler
-import com.ams.core.model.GetParentsResponse
+import com.ams.core.model.PageableModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -48,7 +48,7 @@ class ParentsRouter(
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
                 ],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetParentsResponse::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = PageableModel::class))])]
             )
         ),
         RouterOperation(

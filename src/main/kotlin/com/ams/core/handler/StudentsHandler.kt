@@ -1,6 +1,5 @@
 package com.ams.core.handler
 
-import com.ams.core.model.GetStudentsResponse
 import com.ams.core.model.PageableModel
 import com.ams.core.model.StudentModel
 import com.ams.core.repository.StudentsRepository
@@ -27,7 +26,7 @@ class StudentsHandler(
             .map { StudentModel.of(it) }
             .collectList()
             .zipWith(studentsRepository.count())
-            .flatMap { ok().body(fromValue(GetStudentsResponse.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(StudentModel.of(request, it.t1, it.t2))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
@@ -37,7 +36,7 @@ class StudentsHandler(
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
         request.bodyToMono(StudentModel::class.java)
-            .flatMap { studentsRepository.findById(it.id!!).flatMap { old -> old.updateToMono(it.toEntity()) } }
+            .flatMap { studentsRepository.findById(it.id).flatMap { old -> old.update(it) } }
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
             .single()

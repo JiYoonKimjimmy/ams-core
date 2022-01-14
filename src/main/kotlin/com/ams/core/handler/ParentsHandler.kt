@@ -1,6 +1,5 @@
 package com.ams.core.handler
 
-import com.ams.core.model.GetParentsResponse
 import com.ams.core.model.PageableModel
 import com.ams.core.model.ParentsModel
 import com.ams.core.repository.ParentsRepository
@@ -27,7 +26,7 @@ class ParentsHandler(
             .map { ParentsModel.of(it) }
             .collectList()
             .zipWith(parentsRepository.count())
-            .flatMap { ok().body(fromValue(GetParentsResponse.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(request, it.t1, it.t2))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         parentsRepository
@@ -37,7 +36,7 @@ class ParentsHandler(
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
         request.bodyToMono(ParentsModel::class.java)
-            .flatMap { parentsRepository.findById(it.id!!).flatMap { old -> old.updateToMono(it.toEntity()) } }
+            .flatMap { parentsRepository.findById(it.id).flatMap { old -> old.update(it) } }
             .flatMap { parentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
             .single()
