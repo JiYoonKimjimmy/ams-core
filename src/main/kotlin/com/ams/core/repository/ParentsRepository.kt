@@ -9,4 +9,6 @@ interface ParentsRepository : ReactiveCrudRepository<Parents, Long> {
 
     fun findAllBy(pageable: Pageable): Flux<Parents>
 
+    fun findAllByStudentId(studentId: Long): Flux<Parents>
+
 }

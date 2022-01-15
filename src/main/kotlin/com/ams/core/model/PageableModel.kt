@@ -4,16 +4,16 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.reactive.function.server.ServerRequest
 
-data class PageableModel<T>(
-    val number: Int,
-    val size: Int,
-    val numberOfElements: Int,
-    val totalPages: Int,
-    val totalElements: Long,
-    val first: Boolean,
-    val last: Boolean,
-    val empty: Boolean,
-    val content: MutableList<T>
+open class PageableModel<T>(
+    open val number: Int,
+    open val size: Int,
+    open val numberOfElements: Int,
+    open val totalPages: Int,
+    open val totalElements: Long,
+    open val first: Boolean,
+    open val last: Boolean,
+    open val empty: Boolean,
+    open val content: MutableList<T>
 ) {
     companion object {
         fun toPageRequest(request: ServerRequest) =
@@ -24,7 +24,7 @@ data class PageableModel<T>(
 
     }
 
-    constructor(pageable: PageImpl<T>) : this(
+    constructor(pageable: PageImpl<T>): this(
         number = pageable.number,
         size = pageable.size,
         numberOfElements = pageable.numberOfElements,

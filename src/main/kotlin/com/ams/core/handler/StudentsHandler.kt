@@ -2,6 +2,7 @@ package com.ams.core.handler
 
 import com.ams.core.model.PageableModel
 import com.ams.core.model.StudentModel
+import com.ams.core.repository.ParentsRepository
 import com.ams.core.repository.StudentsRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
@@ -12,18 +13,20 @@ import reactor.core.publisher.Mono
 
 @Component
 class StudentsHandler(
-    val studentsRepository: StudentsRepository
+    val studentsRepository: StudentsRepository,
+    val parentsRepository: ParentsRepository
 ) {
 
     fun getOne(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
             .findById(request.pathVariable("id").toLong())
-            .flatMap { ok().body(fromValue(StudentModel.of(it))) }
+            .zipWith(parentsRepository.findAllByStudentId(request.pathVariable("id").toLong()).collectList())
+            .flatMap { ok().body(fromValue(StudentModel.of(it.t1, it.t2))) }
 
     fun getAll(request: ServerRequest): Mono<ServerResponse> =
         studentsRepository
             .findAllBy(PageableModel.toPageRequest(request))
-            .map { StudentModel.of(it) }
+            .map(StudentModel::of)
             .collectList()
             .zipWith(studentsRepository.count())
             .flatMap { ok().body(fromValue(StudentModel.of(request, it.t1, it.t2))) }

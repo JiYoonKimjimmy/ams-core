@@ -37,3 +37,16 @@ data class ParentsModel(
         studentId = studentId!!
     )
 }
+
+
+data class GetParentsResponse(
+    override val number: Int,
+    override val size: Int,
+    override val numberOfElements: Int,
+    override val totalPages: Int,
+    override val totalElements: Long,
+    override val first: Boolean,
+    override val last: Boolean,
+    override val empty: Boolean,
+    override val content: MutableList<ParentsModel>
+) : PageableModel<ParentsModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)
