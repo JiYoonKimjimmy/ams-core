@@ -8,10 +8,10 @@ import org.springframework.data.relational.core.mapping.Table
 import reactor.core.publisher.Mono
 
 @Table("STUDENTS")
-class Student(
+data class Student(
 
     @Id
-    val id: Long?,
+    val id: Long? = null,
     var name: String,
     var mobileNumber: String,
     var dateOfBirth: String,

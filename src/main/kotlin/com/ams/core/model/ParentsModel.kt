@@ -7,12 +7,14 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 
 data class ParentsModel(
+
     val id: Long,
     val name: String?,
     val mobileNumber: String?,
     val gender: GenderEnum?,
     val status: StatusEnum?,
     val studentId: Long?
+
 ) {
     companion object {
         fun of(parents: Parents) = ParentsModel(
@@ -29,7 +31,6 @@ data class ParentsModel(
     }
 
     fun toEntity() = Parents(
-        id = id,
         name = name!!,
         mobileNumber = mobileNumber!!,
         gender = gender!!,
@@ -40,6 +41,7 @@ data class ParentsModel(
 
 
 data class GetParentsResponse(
+
     override val number: Int,
     override val size: Int,
     override val numberOfElements: Int,
@@ -49,4 +51,5 @@ data class GetParentsResponse(
     override val last: Boolean,
     override val empty: Boolean,
     override val content: MutableList<ParentsModel>
+
 ) : PageableModel<ParentsModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)

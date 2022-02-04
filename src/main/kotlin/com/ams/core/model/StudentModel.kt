@@ -37,7 +37,6 @@ data class StudentModel(
     }
 
     fun toEntity() = Student(
-        id = id,
         name = name!!,
         mobileNumber = mobileNumber!!,
         dateOfBirth = dateOfBirth!!,
