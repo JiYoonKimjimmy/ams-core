@@ -1,5 +1,5 @@
-# Academy Management Service (Core)
-## AMS (학원 관리 서비스)
+# AMS Core
+## Academy Management Service (학원 관리 서비스)
 - 학생별 수업 출석 관리한다.
 - 수업별 필요한 보강 수업을 등록/관리한다.
 - 학생별 시험 일정/완료 여부 관리한다.
