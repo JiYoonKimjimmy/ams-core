@@ -1,6 +1,6 @@
 package com.ams.core.router
 
-import com.ams.core.entity.Student
+import com.ams.core.entity.Teacher
 import com.ams.core.handler.TeachersHandler
 import com.ams.core.model.GetTeachersResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -32,9 +32,9 @@ class TeachersRouter(
             beanClass = TeachersHandler::class,
             beanMethod = "getOne",
             operation = Operation(
-                operationId = "getStudent",
+                operationId = "getTeacher",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
             )
         ),
         RouterOperation(
@@ -43,7 +43,7 @@ class TeachersRouter(
             beanClass = TeachersHandler::class,
             beanMethod = "getAll",
             operation = Operation(
-                operationId = "getStudents",
+                operationId = "getTeachers",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
@@ -57,9 +57,9 @@ class TeachersRouter(
             beanClass = TeachersHandler::class,
             beanMethod = "save",
             operation = Operation(
-                operationId = "saveStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                operationId = "saveTeacher",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Teacher::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
             )
         ),
         RouterOperation(
@@ -68,9 +68,9 @@ class TeachersRouter(
             beanClass = TeachersHandler::class,
             beanMethod = "update",
             operation = Operation(
-                operationId = "updateStudent",
-                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                operationId = "updateTeacher",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = Teacher::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
             )
         ),
         RouterOperation(
@@ -79,7 +79,7 @@ class TeachersRouter(
             beanClass = TeachersHandler::class,
             beanMethod = "delete",
             operation = Operation(
-                operationId = "deleteStudent",
+                operationId = "deleteTeacher",
                 parameters = [Parameter(`in` = ParameterIn.QUERY, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Void::class))])]
             )
