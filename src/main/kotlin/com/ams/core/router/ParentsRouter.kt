@@ -3,6 +3,7 @@ package com.ams.core.router
 import com.ams.core.entity.Parents
 import com.ams.core.handler.ParentsHandler
 import com.ams.core.model.GetParentsResponse
+import com.ams.core.model.ParentsModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -34,7 +35,7 @@ class ParentsRouter(
             operation = Operation(
                 operationId = "getParents",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ParentsModel::class))])]
             )
         ),
         RouterOperation(
@@ -59,7 +60,7 @@ class ParentsRouter(
             operation = Operation(
                 operationId = "saveParents",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Parents::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ParentsModel::class))])]
             )
         ),
         RouterOperation(
@@ -70,7 +71,7 @@ class ParentsRouter(
             operation = Operation(
                 operationId = "updateParents",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Parents::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Parents::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ParentsModel::class))])]
             )
         ),
         RouterOperation(

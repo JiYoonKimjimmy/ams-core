@@ -3,6 +3,7 @@ package com.ams.core.router
 import com.ams.core.entity.Teacher
 import com.ams.core.handler.TeachersHandler
 import com.ams.core.model.GetTeachersResponse
+import com.ams.core.model.TeacherModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -34,7 +35,7 @@ class TeachersRouter(
             operation = Operation(
                 operationId = "getTeacher",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = TeacherModel::class))])]
             )
         ),
         RouterOperation(
@@ -59,7 +60,7 @@ class TeachersRouter(
             operation = Operation(
                 operationId = "saveTeacher",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Teacher::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = TeacherModel::class))])]
             )
         ),
         RouterOperation(
@@ -70,7 +71,7 @@ class TeachersRouter(
             operation = Operation(
                 operationId = "updateTeacher",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Teacher::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Teacher::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = TeacherModel::class))])]
             )
         ),
         RouterOperation(

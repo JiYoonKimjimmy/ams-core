@@ -3,6 +3,7 @@ package com.ams.core.router
 import com.ams.core.entity.Student
 import com.ams.core.handler.StudentsHandler
 import com.ams.core.model.GetStudentsResponse
+import com.ams.core.model.StudentModel
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
@@ -34,7 +35,7 @@ class StudentsRouter(
             operation = Operation(
                 operationId = "getStudent",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = StudentModel::class))])]
             )
         ),
         RouterOperation(
@@ -59,7 +60,7 @@ class StudentsRouter(
             operation = Operation(
                 operationId = "saveStudent",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = StudentModel::class))])]
             )
         ),
         RouterOperation(
@@ -70,7 +71,7 @@ class StudentsRouter(
             operation = Operation(
                 operationId = "updateStudent",
                 requestBody = RequestBody(content = [Content(schema = Schema(implementation = Student::class))]),
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Student::class))])]
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = StudentModel::class))])]
             )
         ),
         RouterOperation(
