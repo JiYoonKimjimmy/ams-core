@@ -1,6 +1,6 @@
 package com.ams.core.common.enum
 
-enum class DayOfTheWeekEnum {
+enum class DayOfWeekEnum {
     MON,
     TUE,
     WED,

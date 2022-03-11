@@ -53,7 +53,7 @@
 | TYPE | 수업 구분 | VARCHAR2 | 독서 토론, 논술, 역사 수업 등.. `CODE` 관리 |
 | START_DATE | 시작 일자 | DATE |
 | END_DATE | 종료 일자 | DATE |
-| DAY_OF_THE_WEEK | 수업 요일 | VARCHAR2 | 수업 요일 목록 (eg. `MON,TUE,WEN`) |
+| DAY_OF_WEEK | 수업 요일 | VARCHAR2 | 수업 요일 목록 (eg. `MON,TUE,WEN`) |
 | WEEKLY_REPEAT | 주별 반복 주기 | INT | 수업 시작 주차 기준 반복 기간 설정 (`default: 1`) | 
 | STATUS | 상태 | VARCHAR2 | `READY`: 준비(`default`), `ACTIVE`: 정상, `DELETED`: 삭제, `FINISHED`: 종강 |
 
@@ -62,7 +62,7 @@
 | --- | --- | --- | --- |
 | ID | 수업 일정 ID | INT | `PK` - Auto increment sequence |
 | CLASS_ID | 수업 ID | INT | `FK` - `CLASSES`.`ID` |
-| TYPE | 수업 구분 | VARCHAR2 | `REGULAR`: 정규, `MAKEUP`: 보강, `SPECIAL`: 특강 |
+| TYPE | 수업 구분 | VARCHAR2 | `REGULAR`: 정규, `SUPPLEMENT`: 보강, `SPECIAL`: 특강 |
 | YEAR | 연도 | VARCHAR2 | `YYYY` |
 | MONTH | 월 | VARCHAR2 | `MM` |
 | DAY | 일 | VARCHAR2 | `DD` |

@@ -43,7 +43,7 @@ CREATE TABLE CLASSES (
     TYPE VARCHAR(10) NOT NULL COMMENT '수업 구분 (독서 토론, 논술, 역사 수업 등.. CODE 관리)',
     START_DATE DATE NOT NULL COMMENT '시작 일자',
     END_DATE DATE NOT NULL COMMENT '종료 일자',
-    DAY_OF_THE_WEEK VARCHAR(5) NOT NULL COMMENT '수업 요일 목록 (eg. MON,TUE,WEN)',
+    DAY_OF_WEEK VARCHAR(5) NOT NULL COMMENT '수업 요일 목록 (eg. MON,TUE,WEN..)',
     WEEKLY_REPEAT INT NOT NULL COMMENT '주별 반복 (default: 1) 주기수업 시작 주차 기준 반복 기간 설정',
     STATUS VARCHAR(10) NOT NULL COMMENT '상태 READY: 준비(default), ACTIVE: 정상, DELETED: 삭제, FINISHED: 종강',
     CREATED DATETIME COMMENT '생성일',

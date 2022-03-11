@@ -1,7 +1,7 @@
 package com.ams.core.entity
 
 import com.ams.core.common.enum.ClassStatusEnum
-import com.ams.core.common.enum.DayOfTheWeekEnum
+import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.model.ClassesModel
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
@@ -17,7 +17,7 @@ data class Classes(
     var type: String,
     var startDate: LocalDate = LocalDate.now(),
     var endDate: LocalDate = LocalDate.now(),
-    var dayOfTheWeek: DayOfTheWeekEnum,
+    var dayOfWeek: DayOfWeekEnum,
     var weeklyRepeat: Int = 1,
     var status: ClassStatusEnum = ClassStatusEnum.READY,
     var teacherId: Long
@@ -30,7 +30,7 @@ data class Classes(
             type = request.type ?: type
             startDate = convertDate(request.startDate, startDate)
             endDate = convertDate(request.endDate, endDate)
-            dayOfTheWeek = request.dayOfTheWeek ?: dayOfTheWeek
+            dayOfWeek = request.dayOfWeek ?: dayOfWeek
             weeklyRepeat = request.weeklyRepeat ?: weeklyRepeat
             status = request.status ?: status
             teacherId = request.teacherId ?: teacherId
