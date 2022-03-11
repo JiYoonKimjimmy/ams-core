@@ -64,8 +64,8 @@ class StudentsRouter(
             )
         ),
         RouterOperation(
-            method = [RequestMethod.PUT],
-            path = "/api/student",
+            method = [RequestMethod.POST],
+            path = "/api/student/update",
             beanClass = StudentsHandler::class,
             beanMethod = "update",
             operation = Operation(
@@ -92,7 +92,7 @@ class StudentsRouter(
                 GET("/student/{id}", studentsHandler::getOne),
                 GET("/students", studentsHandler::getAll),
                 POST("/student", studentsHandler::save),
-                PUT("/student", studentsHandler::update),
+                POST("/student/update", studentsHandler::update),
                 DELETE("/student", studentsHandler::delete)
             )
         }

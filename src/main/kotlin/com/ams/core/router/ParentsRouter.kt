@@ -64,8 +64,8 @@ class ParentsRouter(
             )
         ),
         RouterOperation(
-            method = [RequestMethod.PUT],
-            path = "/api/parents",
+            method = [RequestMethod.POST],
+            path = "/api/parents/update",
             beanClass = ParentsHandler::class,
             beanMethod = "update",
             operation = Operation(
@@ -92,7 +92,7 @@ class ParentsRouter(
                 GET("/parents/{id}", parentsHandler::getOne),
                 GET("/parents", parentsHandler::getAll),
                 POST("/parents", parentsHandler::save),
-                PUT("/parents", parentsHandler::update),
+                POST("/parents/update", parentsHandler::update),
                 DELETE("/parents", parentsHandler::delete)
             )
         }
