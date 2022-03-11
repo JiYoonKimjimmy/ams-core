@@ -1,7 +1,7 @@
 package com.ams.core.model
 
+import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfTheWeekEnum
-import com.ams.core.common.enum.StatusEnum
 import com.ams.core.entity.Classes
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -17,7 +17,7 @@ data class ClassesModel(
     val endDate: String?,
     val dayOfTheWeek: DayOfTheWeekEnum?,
     val weeklyRepeat: Int?,
-    val status: StatusEnum?,
+    val status: ClassStatusEnum?,
     val teacherId: Long?
 
 ) {
