@@ -1,5 +1,6 @@
 package com.ams.core.model
 
+import com.ams.core.common.COMMA
 import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.Classes
@@ -15,9 +16,9 @@ data class ClassesModel(
     val type: String?,
     val startDate: String?,
     val endDate: String?,
-    val dayOfWeek: String?,
+    val dayOfWeek: List<DayOfWeekEnum>?,
     val weeklyRepeat: Int?,
-    val status: ClassStatusEnum?,
+    val status: ClassStatusEnum? = ClassStatusEnum.READY,
     val teacherId: Long?
 
 ) {
@@ -28,7 +29,7 @@ data class ClassesModel(
             type = classes.type,
             startDate = classes.startDate.format(DateTimeFormatter.ISO_DATE),
             endDate = classes.endDate.format(DateTimeFormatter.ISO_DATE),
-            dayOfWeek = classes.dayOfWeek,
+            dayOfWeek = classes.getDayOfWeek(),
             weeklyRepeat = classes.weeklyRepeat,
             status = classes.status,
             teacherId = classes.teacherId
@@ -38,16 +39,19 @@ data class ClassesModel(
             PageableModel(PageImpl(content, PageableModel.toPageRequest(request), totalSize))
     }
 
+    fun getDayOfWeek() = this.dayOfWeek?.map(DayOfWeekEnum::name)?.joinToString(COMMA)
+
     fun toEntity() = Classes(
         name = name!!,
         type = type!!,
         startDate = LocalDate.parse(startDate!!),
         endDate = LocalDate.parse(endDate!!),
-        dayOfWeek = dayOfWeek!!,
+        dayOfWeek = getDayOfWeek()!!,
         weeklyRepeat = weeklyRepeat!!,
         status = status!!,
         teacherId = teacherId!!
     )
+
 
 }
 

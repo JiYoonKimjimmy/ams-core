@@ -1,5 +1,6 @@
 package com.ams.core.entity
 
+import com.ams.core.common.COMMA
 import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.model.ClassesModel
@@ -24,17 +25,20 @@ data class Classes(
 
 ) : BaseEntity() {
 
+    fun getDayOfWeek() = dayOfWeek.split(COMMA).map(DayOfWeekEnum::valueOf)
+
     fun update(request: ClassesModel) = Mono.just(
         this.apply {
             name = request.name ?: name
             type = request.type ?: type
             startDate = convertDate(request.startDate, startDate)
             endDate = convertDate(request.endDate, endDate)
-            dayOfWeek = request.dayOfWeek ?: dayOfWeek
+            dayOfWeek = request.getDayOfWeek() ?: dayOfWeek
             weeklyRepeat = request.weeklyRepeat ?: weeklyRepeat
             status = request.status ?: status
             teacherId = request.teacherId ?: teacherId
         })
 
     private fun convertDate(request: String?, defaultDate: LocalDate) = request?.let { LocalDate.parse(it) } ?: defaultDate
+
 }
