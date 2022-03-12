@@ -15,7 +15,7 @@ data class ClassesModel(
     val type: String?,
     val startDate: String?,
     val endDate: String?,
-    val dayOfWeek: DayOfWeekEnum?,
+    val dayOfWeek: String?,
     val weeklyRepeat: Int?,
     val status: ClassStatusEnum?,
     val teacherId: Long?

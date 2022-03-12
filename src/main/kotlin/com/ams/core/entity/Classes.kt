@@ -17,7 +17,7 @@ data class Classes(
     var type: String,
     var startDate: LocalDate = LocalDate.now(),
     var endDate: LocalDate = LocalDate.now(),
-    var dayOfWeek: DayOfWeekEnum,
+    var dayOfWeek: String,
     var weeklyRepeat: Int = 1,
     var status: ClassStatusEnum = ClassStatusEnum.READY,
     var teacherId: Long
