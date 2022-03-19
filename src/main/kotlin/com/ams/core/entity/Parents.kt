@@ -12,11 +12,11 @@ data class Parents(
 
     @Id
     val id: Long? = null,
+    var studentId: Long,
     var name: String,
     var mobileNumber: String,
     var gender: GenderEnum,
-    var status: StatusEnum = StatusEnum.ACTIVE,
-    var studentId: Long
+    var status: StatusEnum = StatusEnum.ACTIVE
 
 ) : BaseEntity() {
 

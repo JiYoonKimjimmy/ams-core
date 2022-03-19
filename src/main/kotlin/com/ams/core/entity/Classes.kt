@@ -14,14 +14,14 @@ data class Classes(
 
     @Id
     val id: Long? = null,
+    var teacherId: Long,
     var name: String,
     var type: String,
     var startDate: LocalDate = LocalDate.now(),
     var endDate: LocalDate = LocalDate.now(),
     var dayOfWeek: String,
     var weeklyRepeat: Int = 1,
-    var status: ClassStatusEnum = ClassStatusEnum.READY,
-    var teacherId: Long
+    var status: ClassStatusEnum = ClassStatusEnum.READY
 
 ) : BaseEntity() {
 

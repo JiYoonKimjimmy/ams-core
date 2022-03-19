@@ -1,5 +1,6 @@
 package com.ams.core.router
 
+import com.ams.core.entity.ClassSchedules
 import com.ams.core.handler.ClassesHandler
 import com.ams.core.model.ClassesModel
 import com.ams.core.model.GetClassesResponse
@@ -83,6 +84,17 @@ class ClassesRouter(
                 parameters = [Parameter(`in` = ParameterIn.QUERY, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = Void::class))])]
             )
+        ),
+        RouterOperation(
+            method = [RequestMethod.POST],
+            path = "/api/class/{id}/schedules",
+            beanClass = ClassesHandler::class,
+            beanMethod = "save",
+            operation = Operation(
+                operationId = "saveClassSchedules",
+                parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ClassSchedules::class))])]
+            )
         )
     )
     fun classesRouterFunction() = nest(path("/api"),
@@ -92,7 +104,8 @@ class ClassesRouter(
                 GET("/classes", classesHandler::getAll),
                 POST("/class", classesHandler::save),
                 POST("/class/update", classesHandler::update),
-                DELETE("/class", classesHandler::delete)
+                DELETE("/class", classesHandler::delete),
+                POST("/class/{id}/schedules", classesHandler::saveSchedules)
             )
         }
     )

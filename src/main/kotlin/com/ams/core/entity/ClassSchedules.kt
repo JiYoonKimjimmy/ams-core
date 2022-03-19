@@ -8,11 +8,11 @@ data class ClassSchedules(
 
     @Id
     val id: Long? = null,
+    val classId: Long,
     val type: String,
     val year: String,
     val month: String,
     val day: String,
-    val status: String,
-    val classId: Long
+    val status: String
 
 ) : BaseEntity()

@@ -30,7 +30,8 @@ class ClassSchedulesHandlerTest {
                 year = it.year.toString(),
                 month = "${if (it.monthValue < 10) "0" else ""}${it.monthValue}",
                 day = "${if (it.dayOfMonth < 10) "0" else ""}${it.dayOfMonth}",
-                status = "READY"
+                status = "READY",
+                classId = 1
             )
         }
         println(schedules)
