@@ -66,7 +66,8 @@
 | YEAR | 연도 | VARCHAR2 | `YYYY` |
 | MONTH | 월 | VARCHAR2 | `MM` |
 | DAY | 일 | VARCHAR2 | `DD` |
-| TIME | 시간 | VARCHAR2 | `HHmm` |
+| HOUR | 시 | VARCHAR2 | `HH` |
+| MINUTE | 분 | VARCHAR2 | `mm` |
 | STATUS | 상태 | VARCHAR2 | `READY`: 준비(`default`), `FINISHED`: 완료, `CANCELED`: 취소 |
 
 ---
