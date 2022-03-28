@@ -16,7 +16,7 @@ data class ClassesModel(
     val type: String?,
     val startDate: String?,
     val endDate: String?,
-    val dayOfWeek: List<DayOfWeekEnum>?,
+    val dayOfWeek: List<DayOfWeekModel>?,
     val weeklyRepeat: Int?,
     val status: ClassStatusEnum? = ClassStatusEnum.READY,
     val teacherId: Long?
@@ -39,8 +39,6 @@ data class ClassesModel(
             PageableModel(PageImpl(content, PageableModel.toPageRequest(request), totalSize))
     }
 
-    fun getDayOfWeek() = this.dayOfWeek?.map(DayOfWeekEnum::name)?.joinToString(COMMA)
-
     fun toEntity() = Classes(
         name = name!!,
         type = type!!,
@@ -52,6 +50,7 @@ data class ClassesModel(
         teacherId = teacherId!!
     )
 
+    fun getDayOfWeek() = this.dayOfWeek?.joinToString(COMMA, transform = DayOfWeekModel::toString)
 
 }
 
@@ -68,3 +67,28 @@ data class GetClassesResponse(
     override val content: MutableList<ClassesModel>
 
 ) : PageableModel<ClassesModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)
+
+data class DayOfWeekModel(
+
+    val day: DayOfWeekEnum,
+    val hour: String,
+    val minute: String
+
+) {
+
+    companion object {
+        fun parse(value: String) =
+            value.split(":").let {
+                DayOfWeekModel(
+                    day = DayOfWeekEnum.valueOf(it[0]),
+                    hour = it[1],
+                    minute = it[2]
+                )
+            }
+    }
+
+    override fun toString() = "${this.day.name}:$hour:$minute"
+
+}
+
+fun Int.addPreZero() = if (this < 10) "0$this" else "$this"

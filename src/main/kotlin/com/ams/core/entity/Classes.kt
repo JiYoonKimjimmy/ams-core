@@ -2,8 +2,8 @@ package com.ams.core.entity
 
 import com.ams.core.common.COMMA
 import com.ams.core.common.enum.ClassStatusEnum
-import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.model.ClassesModel
+import com.ams.core.model.DayOfWeekModel
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import reactor.core.publisher.Mono
@@ -25,7 +25,7 @@ data class Classes(
 
 ) : BaseEntity() {
 
-    fun getDayOfWeek() = dayOfWeek.split(COMMA).map(DayOfWeekEnum::valueOf)
+    fun getDayOfWeek() = dayOfWeek.split(COMMA).map(DayOfWeekModel::parse)
 
     fun update(request: ClassesModel) = Mono.just(
         this.apply {
