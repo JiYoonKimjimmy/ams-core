@@ -29,6 +29,8 @@ dependencies {
 
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.12")
 
+    implementation("me.moallemi.tools:kotlin-date-range:1.0.0")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 }
 

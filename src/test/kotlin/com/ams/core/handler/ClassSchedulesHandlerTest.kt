@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.util.*
+import me.moallemi.tools.daterange.localdate.rangeTo
 
 class ClassSchedulesHandlerTest {
 
@@ -26,6 +27,15 @@ class ClassSchedulesHandlerTest {
         println(date.dayOfMonth.addPreZero())
         println(date.toLocalTime().hour.addPreZero())
         println(date.toLocalTime().minute.addPreZero())
+    }
+
+    @Test
+    fun betweenLocalDateTest() {
+        val startDate = LocalDate.parse("2022-03-01")
+        val endDate = LocalDate.parse("2022-03-31")
+        for (date in startDate..endDate) {
+            println(date)
+        }
     }
 
     @Test
