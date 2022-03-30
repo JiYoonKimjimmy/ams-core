@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.*
 
 data class ClassesModel(
 
@@ -91,4 +93,5 @@ data class DayOfWeekModel(
 
 }
 
+fun LocalDate.getDisplayDayOfWeek() = this.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US).uppercase()
 fun Int.addPreZero() = if (this < 10) "0$this" else "$this"

@@ -5,8 +5,7 @@ import com.ams.core.common.enum.ClassScheduleTypeEnum
 import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.ClassSchedules
-import com.ams.core.model.DayOfWeekModel
-import com.ams.core.model.addPreZero
+import com.ams.core.model.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -33,9 +32,7 @@ class ClassSchedulesHandlerTest {
     fun betweenLocalDateTest() {
         val startDate = LocalDate.parse("2022-03-01")
         val endDate = LocalDate.parse("2022-03-31")
-        for (date in startDate..endDate) {
-            println(date)
-        }
+        (startDate..endDate).forEach(::println)
     }
 
     @Test
@@ -67,6 +64,36 @@ class ClassSchedulesHandlerTest {
                 )
             }.toList()
         println(schedules)
+    }
+
+    @Test
+    fun saveClassSchedules2() {
+        val classDayOfWeeks = "MON:14:30,WED:16:00".split(COMMA).map(DayOfWeekModel::parse)
+        val dayOfWeeks = classDayOfWeeks.map(DayOfWeekModel::day)
+        val startDate = LocalDate.parse("2022-03-01")
+        val endDate = LocalDate.parse("2022-03-31")
+
+        val classSchedules = (startDate..endDate)
+            .filter {
+                dayOfWeeks.contains(DayOfWeekEnum.valueOf(it.getDisplayDayOfWeek()))
+            }.map {
+                classDayOfWeeks.find { c -> c.day.name == it.getDisplayDayOfWeek() }!!.let { c ->
+                    it.atTime(c.hour.toInt(), c.minute.toInt())
+                }
+            }.map {
+                ClassSchedules(
+                    type = ClassScheduleTypeEnum.REGULAR.name,
+                    year = it.year.toString(),
+                    month = it.monthValue.addPreZero(),
+                    day = it.dayOfMonth.addPreZero(),
+                    hour = it.hour.addPreZero(),
+                    minute = it.minute.addPreZero(),
+                    status = ClassStatusEnum.READY.name,
+                    classId = 1
+                )
+            }
+
+        println(classSchedules)
     }
 
 }
