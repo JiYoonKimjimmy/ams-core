@@ -105,7 +105,7 @@ class ClassesRouter(
                 POST("/class", classesHandler::save),
                 POST("/class/update", classesHandler::update),
                 DELETE("/class", classesHandler::delete),
-                POST("/class/{id}/schedules", classesHandler::saveSchedules)
+                POST("/class/schedules", classesHandler::saveSchedules)
             )
         }
     )

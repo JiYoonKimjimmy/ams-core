@@ -1,5 +1,6 @@
 package com.ams.core.handler
 
+import com.ams.core.model.ClassSchedulesModel
 import com.ams.core.model.ClassesModel
 import com.ams.core.model.PageableModel
 import com.ams.core.repository.ClassesRepository
@@ -49,7 +50,7 @@ class ClassesHandler(
 
     fun saveSchedules(request: ServerRequest): Mono<ServerResponse> =
         classesRepository
-            .findById(request.pathVariable("id").toLong())
+            .findById(request.bodyToMono(ClassSchedulesModel::class.java).mapNotNull { it.classId })
             .map { classSchedulesHandler.save(it) }
             .flatMap { it.collectList() }
             .flatMap { ok().body(fromValue(it)) }
