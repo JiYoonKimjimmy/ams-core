@@ -6,6 +6,8 @@ import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.Classes
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -14,6 +16,7 @@ import java.util.*
 data class ClassesModel(
 
     val id: Long,
+    val teacherId: Long?,
     val name: String?,
     val type: String?,
     val startDate: String?,
@@ -21,7 +24,7 @@ data class ClassesModel(
     val dayOfWeek: List<DayOfWeekModel>?,
     val weeklyRepeat: Int?,
     val status: ClassStatusEnum? = ClassStatusEnum.READY,
-    val teacherId: Long?
+    var schedules: List<ClassSchedulesModel>? = null
 
 ) {
     companion object {

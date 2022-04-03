@@ -1,8 +1,10 @@
 package com.ams.core.model
 
+import com.ams.core.entity.ClassSchedules
+
 data class ClassSchedulesModel(
 
-    val id: String?,
+    val id: Long?,
     val type: String?,
     val year: String?,
     val month: String?,
@@ -12,4 +14,18 @@ data class ClassSchedulesModel(
     val status: String?,
     val classId: Long?
 
-)
+) {
+    companion object {
+        fun of(classSchedules: ClassSchedules) = ClassSchedulesModel(
+            id = classSchedules.id,
+            type = classSchedules.type,
+            year = classSchedules.year,
+            month = classSchedules.month,
+            day = classSchedules.day,
+            hour = classSchedules.hour,
+            minute = classSchedules.minute,
+            status = classSchedules.status,
+            classId = classSchedules.classId,
+        )
+    }
+}

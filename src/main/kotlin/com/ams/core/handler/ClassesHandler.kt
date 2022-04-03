@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.BodyInserters.fromValue
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.ok
+import org.springframework.web.reactive.function.server.body
 import reactor.core.publisher.Mono
 
 @Component
@@ -20,7 +21,8 @@ class ClassesHandler(
     fun getOne(request: ServerRequest): Mono<ServerResponse> =
         classesRepository
             .findById(request.pathVariable("id").toLong())
-            .flatMap { ok().body(fromValue(ClassesModel.of(it))) }
+            .map { classSchedulesHandler.getAll(ClassesModel.of(it)) }
+            .flatMap { ok().body(it) }
 
     fun getAll(request: ServerRequest): Mono<ServerResponse> =
         classesRepository
