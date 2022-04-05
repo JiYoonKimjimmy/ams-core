@@ -31,7 +31,7 @@ class ClassSchedulesHandler(
     /**
      * class schedules 저장 처리
      */
-    fun save(classes: Classes): Flux<ClassSchedules> =
+    fun saveAll(classes: Classes): Flux<ClassSchedules> =
         classes.getDayOfWeek().let { dayOfWeeks ->
             (classes.startDate..classes.endDate)
                 .filter {
