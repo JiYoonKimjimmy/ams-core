@@ -6,12 +6,8 @@ import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.Classes
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.*
 
 data class ClassesModel(
 
@@ -23,6 +19,7 @@ data class ClassesModel(
     val endDate: String?,
     val dayOfWeek: List<DayOfWeekModel>?,
     val weeklyRepeat: Int?,
+    val timeDuration: String?,
     val status: ClassStatusEnum? = ClassStatusEnum.READY,
     var schedules: List<ClassSchedulesModel>? = null
 
@@ -37,6 +34,7 @@ data class ClassesModel(
             dayOfWeek = classes.getDayOfWeek(),
             weeklyRepeat = classes.weeklyRepeat,
             status = classes.status,
+            timeDuration = classes.timeDuration,
             teacherId = classes.teacherId
         )
 
@@ -52,6 +50,7 @@ data class ClassesModel(
         dayOfWeek = getDayOfWeek()!!,
         weeklyRepeat = weeklyRepeat!!,
         status = status!!,
+        timeDuration = timeDuration!!,
         teacherId = teacherId!!
     )
 
@@ -95,6 +94,3 @@ data class DayOfWeekModel(
     override fun toString() = "${this.day.name}:$hour:$minute"
 
 }
-
-fun LocalDate.getDisplayDayOfWeek() = this.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US).uppercase()
-fun Int.addPreZero() = if (this < 10) "0$this" else "$this"

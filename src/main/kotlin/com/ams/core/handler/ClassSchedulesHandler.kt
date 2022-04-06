@@ -1,11 +1,12 @@
 package com.ams.core.handler
 
-import com.ams.core.common.enum.ClassScheduleTypeEnum
-import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.ClassSchedules
 import com.ams.core.entity.Classes
-import com.ams.core.model.*
+import com.ams.core.entity.getDisplayDayOfWeek
+import com.ams.core.model.ClassSchedulesModel
+import com.ams.core.model.ClassesModel
+import com.ams.core.model.DayOfWeekModel
 import com.ams.core.repository.ClassSchedulesRepository
 import me.moallemi.tools.daterange.localdate.rangeTo
 import org.springframework.stereotype.Component
@@ -41,16 +42,7 @@ class ClassSchedulesHandler(
                         it.atTime(c.hour.toInt(), c.minute.toInt())
                     }
                 }.map {
-                    ClassSchedules(
-                        type = ClassScheduleTypeEnum.REGULAR.name,
-                        year = it.year.toString(),
-                        month = it.monthValue.addPreZero(),
-                        day = it.dayOfMonth.addPreZero(),
-                        hour = it.hour.addPreZero(),
-                        minute = it.minute.addPreZero(),
-                        status = ClassStatusEnum.READY.name,
-                        classId = classes.teacherId
-                    )
+                    ClassSchedules.ready(classes, it)
                 }
         }.let {
             classSchedulesRepository.saveAll(it)

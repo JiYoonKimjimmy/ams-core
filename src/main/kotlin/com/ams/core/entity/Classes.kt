@@ -21,6 +21,7 @@ data class Classes(
     var endDate: LocalDate = LocalDate.now(),
     var dayOfWeek: String,
     var weeklyRepeat: Int = 1,
+    var timeDuration: String,
     var status: ClassStatusEnum = ClassStatusEnum.READY
 
 ) : BaseEntity() {
@@ -36,6 +37,7 @@ data class Classes(
             dayOfWeek = request.getDayOfWeek() ?: dayOfWeek
             weeklyRepeat = request.weeklyRepeat ?: weeklyRepeat
             status = request.status ?: status
+            timeDuration = request.timeDuration ?: timeDuration
             teacherId = request.teacherId ?: teacherId
         })
 

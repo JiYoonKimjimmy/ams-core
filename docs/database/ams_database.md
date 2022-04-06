@@ -55,6 +55,7 @@
 | END_DATE | 종료 일자 | DATE |
 | DAY_OF_WEEK | 수업 요일 (with 시간) | VARCHAR | 수업 요일 목록 (eg. `MON:14:00,TUE:15:00,WEN:13:00`) |
 | WEEKLY_REPEAT | 주별 반복 주기 | INT | 수업 시작 주차 기준 반복 기간 설정 (`default: 1`) | 
+| TIME_DURATION | 수업 시간 | VARCHAR | `mm` 단위 수업 시간 |
 | STATUS | 상태 | VARCHAR | `READY`: 준비(`default`), `ACTIVE`: 정상, `DELETED`: 삭제, `FINISHED`: 종강 |
 
 ### `CLASS_SCHEDULES` 수업 일정 정보 Table
@@ -68,7 +69,7 @@
 | DAY | 일 | VARCHAR | `DD` |
 | HOUR | 시 | VARCHAR | `HH` |
 | MINUTE | 분 | VARCHAR | `mm` |
-| TIME | 수업 시간 | INT | 수업 시간 (`mm` 단위) |
+| TIME_DURATION | 수업 시간 | VARCHAR | `mm` 단위 수업 시간 |
 | STATUS | 상태 | VARCHAR | `READY`: 준비(`default`), `FINISHED`: 완료, `CANCELED`: 취소 |
 
 ---

@@ -11,6 +11,7 @@ data class ClassSchedulesModel(
     val day: String?,
     val hour: String?,
     val minute: String?,
+    val timeDuration: String?,
     val status: String?,
     val classId: Long?
 
@@ -24,6 +25,7 @@ data class ClassSchedulesModel(
             day = classSchedules.day,
             hour = classSchedules.hour,
             minute = classSchedules.minute,
+            timeDuration = classSchedules.timeDuration,
             status = classSchedules.status,
             classId = classSchedules.classId,
         )
