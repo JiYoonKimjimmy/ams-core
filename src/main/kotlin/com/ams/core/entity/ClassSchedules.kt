@@ -2,8 +2,10 @@ package com.ams.core.entity
 
 import com.ams.core.common.enum.ClassScheduleTypeEnum
 import com.ams.core.common.enum.ClassStatusEnum
+import com.ams.core.model.ClassSchedulesModel
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
+import reactor.core.publisher.Mono
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -14,15 +16,15 @@ data class ClassSchedules(
 
     @Id
     val id: Long? = null,
-    val classId: Long,
-    val type: String,
-    val year: String,
-    val month: String,
-    val day: String,
-    val hour: String,
-    val minute: String,
-    val timeDuration: String,
-    val status: String
+    var classId: Long,
+    var type: String,
+    var year: String,
+    var month: String,
+    var day: String,
+    var hour: String,
+    var minute: String,
+    var timeDuration: String,
+    var status: String
 
 ) : BaseEntity() {
     companion object {
@@ -39,6 +41,19 @@ data class ClassSchedules(
                 classId = classes.teacherId
             )
     }
+
+    fun update(request: ClassSchedulesModel) = Mono.just(
+        this.apply {
+            type = request.type ?: type
+            year = request.year ?: year
+            month = request.month ?: month
+            day = request.day ?: day
+            hour = request.hour ?: hour
+            minute = request.minute ?: minute
+            timeDuration = request.timeDuration ?: timeDuration
+            status = request.status ?: status
+        })
+
 }
 
 fun LocalDate.getDisplayDayOfWeek() = this.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US).uppercase()

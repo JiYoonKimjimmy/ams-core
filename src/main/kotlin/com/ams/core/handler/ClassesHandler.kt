@@ -57,4 +57,10 @@ class ClassesHandler(
             .flatMap { it.collectList() }
             .flatMap { ok().body(fromValue(it)) }
 
+    fun updateSchedules(request: ServerRequest): Mono<ServerResponse> =
+        classSchedulesHandler
+            .update(request)
+            .flatMap { ok().body(fromValue(it)) }
+            .single()
+
 }

@@ -10,6 +10,7 @@ import com.ams.core.model.DayOfWeekModel
 import com.ams.core.repository.ClassSchedulesRepository
 import me.moallemi.tools.daterange.localdate.rangeTo
 import org.springframework.stereotype.Component
+import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -18,9 +19,6 @@ class ClassSchedulesHandler(
     val classSchedulesRepository: ClassSchedulesRepository
 ) {
 
-    /**
-     * class schedules 조회
-     */
     fun getAll(classes: ClassesModel): Mono<ClassesModel> =
         classSchedulesRepository
             .findAllByClassId(classes.id)
@@ -29,9 +27,6 @@ class ClassSchedulesHandler(
                 classes.apply { schedules = it.map { s -> ClassSchedulesModel.of(s) } }
             }
 
-    /**
-     * class schedules 저장 처리
-     */
     fun saveAll(classes: Classes): Flux<ClassSchedules> =
         classes.getDayOfWeek().let { dayOfWeeks ->
             (classes.startDate..classes.endDate)
@@ -47,5 +42,10 @@ class ClassSchedulesHandler(
         }.let {
             classSchedulesRepository.saveAll(it)
         }
+
+    fun update(request: ServerRequest): Mono<ClassSchedules> =
+        request.bodyToMono(ClassSchedulesModel::class.java)
+            .flatMap { classSchedulesRepository.findById(it.id).flatMap { old -> old.update(it) } }
+            .flatMap { classSchedulesRepository.save(it) }
 
 }

@@ -4,7 +4,7 @@ import com.ams.core.entity.ClassSchedules
 
 data class ClassSchedulesModel(
 
-    val id: Long?,
+    val id: Long,
     val type: String?,
     val year: String?,
     val month: String?,
@@ -18,7 +18,7 @@ data class ClassSchedulesModel(
 ) {
     companion object {
         fun of(classSchedules: ClassSchedules) = ClassSchedulesModel(
-            id = classSchedules.id,
+            id = classSchedules.id!!,
             type = classSchedules.type,
             year = classSchedules.year,
             month = classSchedules.month,

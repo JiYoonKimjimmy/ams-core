@@ -1,7 +1,7 @@
 package com.ams.core.router
 
-import com.ams.core.entity.ClassSchedules
 import com.ams.core.handler.ClassesHandler
+import com.ams.core.model.ClassSchedulesModel
 import com.ams.core.model.ClassesModel
 import com.ams.core.model.GetClassesResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -87,13 +87,24 @@ class ClassesRouter(
         ),
         RouterOperation(
             method = [RequestMethod.POST],
-            path = "/api/class/{id}/schedules",
+            path = "/api/class/schedules",
             beanClass = ClassesHandler::class,
             beanMethod = "save",
             operation = Operation(
                 operationId = "saveClassSchedules",
-                parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
-                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ClassSchedules::class))])]
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = ClassSchedulesModel::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ClassSchedulesModel::class))])]
+            )
+        ),
+        RouterOperation(
+            method = [RequestMethod.POST],
+            path = "/api/class/schedules/update",
+            beanClass = ClassesHandler::class,
+            beanMethod = "update",
+            operation = Operation(
+                operationId = "updateClassSchedules",
+                requestBody = RequestBody(content = [Content(schema = Schema(implementation = ClassSchedulesModel::class))]),
+                responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ClassSchedulesModel::class))])]
             )
         )
     )
@@ -105,7 +116,8 @@ class ClassesRouter(
                 POST("/class", classesHandler::save),
                 POST("/class/update", classesHandler::update),
                 DELETE("/class", classesHandler::delete),
-                POST("/class/schedules", classesHandler::saveSchedules)
+                POST("/class/schedules", classesHandler::saveSchedules),
+                POST("/class/schedules/update", classesHandler::updateSchedules)
             )
         }
     )
