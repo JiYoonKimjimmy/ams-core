@@ -32,10 +32,11 @@ class StudentsHandler(
             .flatMap { ok().body(fromValue(StudentModel.of(request, it.t1, it.t2))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository
-            .saveAll(request.bodyToMono(StudentModel::class.java).map { it.toEntity() })
+        request
+            .bodyToMono(StudentModel::class.java)
+            .map { it.toEntity() }
+            .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
-            .single()
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
         request.bodyToMono(StudentModel::class.java)
