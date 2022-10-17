@@ -1,5 +1,6 @@
 package com.ams.core.handler
 
+import com.ams.core.config.ValidatorConfig
 import com.ams.core.model.PageableModel
 import com.ams.core.model.StudentModel
 import com.ams.core.repository.ParentsRepository
@@ -14,7 +15,9 @@ import reactor.core.publisher.Mono
 @Component
 class StudentsHandler(
     val studentsRepository: StudentsRepository,
-    val parentsRepository: ParentsRepository
+    val parentsRepository: ParentsRepository,
+
+    val validatorConfig: ValidatorConfig
 ) {
 
     fun getOne(request: ServerRequest): Mono<ServerResponse> =
@@ -34,6 +37,13 @@ class StudentsHandler(
     fun save(request: ServerRequest): Mono<ServerResponse> =
         request
             .bodyToMono(StudentModel::class.java)
+            .map { it.toEntity() }
+            .flatMap { studentsRepository.save(it) }
+            .flatMap { ok().body(fromValue(it)) }
+
+    fun saveWithValidation(request: ServerRequest): Mono<ServerResponse> =
+        validatorConfig
+            .requireValidation(request, StudentModel::class.java)
             .map { it.toEntity() }
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }

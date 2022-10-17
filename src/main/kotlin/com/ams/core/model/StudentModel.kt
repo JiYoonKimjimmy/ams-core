@@ -6,11 +6,16 @@ import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 data class StudentModel(
     val id: Long,
+    @get:NotNull
     val name: String?,
+    @get:Size(min = 9, max = 11)
     val mobileNumber: String?,
+    @get:Size(max = 8)
     val dateOfBirth: String?,
     val gender: GenderEnum?,
     val school: String?,

@@ -92,6 +92,7 @@ class StudentsRouter(
                 GET("/student/{id}", studentsHandler::getOne),
                 GET("/students", studentsHandler::getAll),
                 POST("/student", studentsHandler::save),
+                POST("/student/validation", studentsHandler::saveWithValidation),
                 POST("/student/update", studentsHandler::update),
                 DELETE("/student", studentsHandler::delete)
             )
