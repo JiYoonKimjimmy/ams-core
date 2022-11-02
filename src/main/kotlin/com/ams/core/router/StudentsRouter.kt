@@ -94,7 +94,11 @@ class StudentsRouter(
                 POST("/student", studentsHandler::save),
                 POST("/student/validation", studentsHandler::saveWithValidation),
                 POST("/student/update", studentsHandler::update),
-                DELETE("/student", studentsHandler::delete)
+                DELETE("/student", studentsHandler::delete),
+                filter { serverRequest, function ->
+                    println("coRouterFilter : ${serverRequest.path()}")
+                    function(serverRequest)
+                }
             )
         }
     )
