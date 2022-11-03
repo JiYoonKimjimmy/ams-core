@@ -26,7 +26,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
 
-    implementation("org.mariadb:r2dbc-mariadb:1.0.2")
+//    implementation("org.mariadb:r2dbc-mariadb:1.0.2")
+    implementation("io.r2dbc:r2dbc-h2")
 
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.11")
 

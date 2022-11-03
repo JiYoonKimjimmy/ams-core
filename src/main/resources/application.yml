@@ -5,25 +5,13 @@ server:
     context-path: ams
 # spring
 spring:
+  profiles:
+    active: h2
   # webflux
   webflux:
     base-path: ams
-  # jpa
-  jpa:
-    show-sql: true
-    generate-ddl: false
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.mariadb.jdbc.Driver
-        format_sql: true
   # r2dbc
   r2dbc:
-    url: r2dbc:mariadb://maria-database.ciroumm1ym9r.ap-northeast-2.rds.amazonaws.com:3306
-    name: AMS
-    username: admin
-    password: admin1234
     pool:
       max-size: 100
       validation-query: SELECT 1
@@ -31,3 +19,26 @@ spring:
 logging:
   level:
     org.springframework.r2dbc: DEBUG
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: h2
+  r2dbc:
+    url: r2dbc:h2:mem://localhost/~/ams
+    username: sa
+    password:
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: aws
+  r2dbc:
+    url: r2dbc:mariadb://maria-database.ciroumm1ym9r.ap-northeast-2.rds.amazonaws.com:3306
+    name: AMS
+    username: admin
+    password: admin1234
