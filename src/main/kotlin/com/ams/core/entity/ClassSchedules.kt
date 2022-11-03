@@ -23,7 +23,7 @@ data class ClassSchedules(
     var day: String,
     var hour: String,
     var minute: String,
-    var timeDuration: String,
+    var timeDuration: String? = "",
     var status: String
 
 ) : BaseEntity() {

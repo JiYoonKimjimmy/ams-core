@@ -5,6 +5,8 @@ import com.ams.core.common.enum.ClassScheduleTypeEnum
 import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
 import com.ams.core.entity.ClassSchedules
+import com.ams.core.entity.addPreZero
+import com.ams.core.entity.getDisplayDayOfWeek
 import com.ams.core.model.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
