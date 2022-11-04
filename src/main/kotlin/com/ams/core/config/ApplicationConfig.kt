@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.info.Info
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
 
-@Configuration
 @EnableR2dbcAuditing
 @OpenAPIDefinition(
     info = Info(
@@ -14,4 +13,5 @@ import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
         description = "Academy Management Service"
     )
 )
+@Configuration
 class ApplicationConfig
