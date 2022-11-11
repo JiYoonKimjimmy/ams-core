@@ -1,0 +1,15 @@
+### GET students
+GET http://localhost:10010/ams/api/students
+
+### POST student
+POST http://localhost:10010/ams/api/student
+Content-Type: application/json
+
+{
+  "name":  "김지윤",
+  "mobileNumber": "01020326457",
+  "dateOfBirth":  "19900309",
+  "gender": "M",
+  "school":  "신길초",
+  "grade": "6"
+}
