@@ -27,7 +27,7 @@ spring:
     activate:
       on-profile: h2
   r2dbc:
-    url: r2dbc:h2:file:///~/h2/ams
+    url: r2dbc:h2:file:///~/h2/ams;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
     username: admin
     password: admin1234
 
