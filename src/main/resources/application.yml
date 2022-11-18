@@ -26,10 +26,10 @@ spring:
   config:
     activate:
       on-profile: h2
-#  r2dbc:
-#    url: r2dbc:h2:file:~/h2/ams
-#    username: admin
-#    password: admin1234
+  r2dbc:
+    url: r2dbc:h2:file:///~/h2/ams
+    username: admin
+    password: admin1234
 
 ---
 

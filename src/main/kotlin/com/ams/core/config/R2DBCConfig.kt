@@ -17,37 +17,37 @@ import org.springframework.transaction.ReactiveTransactionManager
 @Configuration
 class R2DBCConfig : AbstractR2dbcConfiguration() {
 
-    override fun connectionFactory(): ConnectionFactory {
-        return H2ConnectionConfiguration
+    /**
+     * [H2 R2DBC 설정 방법]
+     * - properties r2dbc 설정 추가
+     * - java configuration class r2dbc 설정 추가
+     */
+    override fun connectionFactory(): ConnectionFactory =
+        H2ConnectionConfiguration
             .builder()
-//            .file("~/h2/ams")
-            .inMemory("~/ams")
+            .file("~/h2/ams")
             .username("admin")
             .password("admin1234")
             .build()
             .let { H2ConnectionFactory(it) }
-    }
 
     @Bean
-    fun transactionManager(connectionFactory: ConnectionFactory): ReactiveTransactionManager {
-        return R2dbcTransactionManager(connectionFactory)
-    }
+    fun transactionManager(connectionFactory: ConnectionFactory): ReactiveTransactionManager =
+        R2dbcTransactionManager(connectionFactory)
 
     @Bean
-    fun dbInitializer(): ConnectionFactoryInitializer {
-        return ConnectionFactoryInitializer()
+    fun dbInitializer(): ConnectionFactoryInitializer =
+        ConnectionFactoryInitializer()
             .apply {
                 this.setConnectionFactory(connectionFactory())
                 this.setDatabasePopulator(setDatabasePopulator())
             }
-    }
 
-    private fun setDatabasePopulator(): ResourceDatabasePopulator {
-        return ResourceDatabasePopulator()
+    private fun setDatabasePopulator(): ResourceDatabasePopulator =
+        ResourceDatabasePopulator()
             .apply {
                 this.addScript(ClassPathResource("schema-student-h2.sql"))
                 this.setContinueOnError(true)
             }
-    }
 
 }
