@@ -22,7 +22,7 @@ data class Student(
 
 ) : BaseEntity() {
 
-    fun update(request: StudentModel) = Mono.just(
+    fun update(request: StudentModel) =
         this.apply {
             name = request.name ?: name
             mobileNumber = request.mobileNumber ?: mobileNumber
@@ -31,6 +31,6 @@ data class Student(
             school = request.school ?: school
             grade = request.grade ?: grade
             status = request.status ?: status
-        })
+        }.let { Mono.just(it) }
 
 }

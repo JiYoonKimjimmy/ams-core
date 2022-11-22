@@ -6,6 +6,7 @@ import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
+import reactor.util.function.Tuple2
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -21,23 +22,31 @@ data class StudentModel(
     val school: String?,
     val grade: String?,
     val status: StatusEnum?,
-    var parents: MutableList<Parents>?
+    var parents: List<Parents>? = null
 ) {
     companion object {
-        fun of(student: Student, parents: MutableList<Parents>? = null) = StudentModel(
-            id = student.id!!,
-            name = student.name,
-            mobileNumber = student.mobileNumber,
-            dateOfBirth = student.dateOfBirth,
-            gender = student.gender,
-            school = student.school,
-            grade = student.grade,
-            status = student.status,
-            parents = parents
-        )
 
-        fun of(request: ServerRequest, content: List<StudentModel>, totalSize: Long) =
-            PageableModel(PageImpl(content, PageableModel.toPageRequest(request), totalSize))
+        fun of(student: Student) =
+            StudentModel(
+                id = student.id!!,
+                name = student.name,
+                mobileNumber = student.mobileNumber,
+                dateOfBirth = student.dateOfBirth,
+                gender = student.gender,
+                school = student.school,
+                grade = student.grade,
+                status = student.status
+            )
+
+        fun of(tuple: Tuple2<Student, List<Parents>>): StudentModel =
+            of(student = tuple.t1)
+                .apply { this.parents = tuple.t2.ifEmpty { null } }
+
+        fun of(request: ServerRequest, tuple: Tuple2<List<Student>, Long>) =
+            tuple
+                .t1
+                .map { of(student = it) }
+                .let { PageableModel(pageable = PageImpl(it, PageableModel.toPageRequest(request), tuple.t2)) }
 
     }
 

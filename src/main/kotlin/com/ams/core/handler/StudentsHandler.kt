@@ -3,8 +3,8 @@ package com.ams.core.handler
 import com.ams.core.config.ValidatorConfig
 import com.ams.core.model.PageableModel
 import com.ams.core.model.StudentModel
-import com.ams.core.repository.ParentsRepository
 import com.ams.core.repository.StudentsRepository
+import com.ams.core.service.ParentsService
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -15,49 +15,53 @@ import reactor.core.publisher.Mono
 @Component
 class StudentsHandler(
     val studentsRepository: StudentsRepository,
-    val parentsRepository: ParentsRepository,
-
+    val parentsService: ParentsService,
     val validatorConfig: ValidatorConfig
 ) {
 
-    fun getOne(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository
-            .findById(request.pathVariable("id").toLong())
-            .zipWith(parentsRepository.findAllByStudentId(request.pathVariable("id").toLong()).collectList())
-            .flatMap { ok().body(fromValue(StudentModel.of(it.t1, it.t2))) }
+    fun findOne(request: ServerRequest): Mono<ServerResponse> =
+        request
+            .pathVariable("id")
+            .toLong()
+            .let { studentsRepository.findById(it) }
+            .zipWhen { parentsService.findAllByStudent(studentId = it.id!!).collectList() }
+            .flatMap { ok().body(fromValue(StudentModel.of(tuple = it))) }
 
-    fun getAll(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository
-            .findAllBy(PageableModel.toPageRequest(request))
-            .map(StudentModel::of)
-            .collectList()
+    fun findAll(request: ServerRequest): Mono<ServerResponse> =
+        PageableModel
+            .toPageRequest(request = request)
+            .let { studentsRepository.findAllBy(pageable = it).collectList() }
             .zipWith(studentsRepository.count())
-            .flatMap { ok().body(fromValue(StudentModel.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(StudentModel.of(request = request, tuple = it))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
         request
             .bodyToMono(StudentModel::class.java)
-            .map { it.toEntity() }
+            .map { it.toEntity()}
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
 
     fun saveWithValidation(request: ServerRequest): Mono<ServerResponse> =
         validatorConfig
-            .requireValidation(request, StudentModel::class.java)
-            .map { it.toEntity() }
+            .requireValidation(request = request, bodyClass = StudentModel::class.java)
+            .map { it.toEntity()}
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
-        request.bodyToMono(StudentModel::class.java)
-            .flatMap { studentsRepository.findById(it.id).flatMap { old -> old.update(it) } }
+        request
+            .bodyToMono(StudentModel::class.java)
+            .zipWhen { studentsRepository.findById(it.id) }
+            .flatMap { it.t2.update(it.t1) }
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
-            .single()
 
     fun delete(request: ServerRequest): Mono<ServerResponse> =
-        studentsRepository
-            .deleteById(request.queryParam("id").orElseThrow().toLong())
+        request
+            .queryParam("id")
+            .orElseThrow()
+            .toLong()
+            .let { studentsRepository.deleteById(it) }
             .flatMap { ok().build() }
 
 }

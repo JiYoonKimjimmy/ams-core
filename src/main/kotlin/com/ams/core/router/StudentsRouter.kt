@@ -31,7 +31,7 @@ class StudentsRouter(
             method = [RequestMethod.GET],
             path = "/api/student/{id}",
             beanClass = StudentsHandler::class,
-            beanMethod = "getOne",
+            beanMethod = "findOne",
             operation = Operation(
                 operationId = "getStudent",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
@@ -42,7 +42,7 @@ class StudentsRouter(
             method = [RequestMethod.GET],
             path = "/api/students",
             beanClass = StudentsHandler::class,
-            beanMethod = "getAll",
+            beanMethod = "findAll",
             operation = Operation(
                 operationId = "getStudents",
                 parameters = [
@@ -89,12 +89,13 @@ class StudentsRouter(
     fun studentsRouterFunction() = nest(path("/api"),
         router {
             listOf(
-                GET("/student/{id}", studentsHandler::getOne),
-                GET("/students", studentsHandler::getAll),
+                GET("/student/{id}", studentsHandler::findOne),
+                GET("/students", studentsHandler::findAll),
                 POST("/student", studentsHandler::save),
                 POST("/student/validation", studentsHandler::saveWithValidation),
                 POST("/student/update", studentsHandler::update),
                 DELETE("/student", studentsHandler::delete),
+
                 filter { serverRequest, function ->
                     println("coRouterFilter : ${serverRequest.path()}")
                     function(serverRequest)
