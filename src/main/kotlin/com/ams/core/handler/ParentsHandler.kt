@@ -16,34 +16,40 @@ class ParentsHandler(
 ) {
 
     fun findOne(request: ServerRequest): Mono<ServerResponse> =
-        parentsRepository
-            .findById(request.pathVariable("id").toLong())
+        request
+            .pathVariable("id")
+            .toLong()
+            .let { parentsRepository.findById(it) }
             .flatMap { ok().body(fromValue(ParentsModel.of(it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        parentsRepository
-            .findAllBy(PageableModel.toPageRequest(request))
-            .map { ParentsModel.of(it) }
-            .collectList()
+        PageableModel
+            .toPageRequest(request = request)
+            .let { parentsRepository.findAllBy(pageable = it).collectList() }
             .zipWith(parentsRepository.count())
-            .flatMap { ok().body(fromValue(ParentsModel.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(request = request, tuple = it))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
-        parentsRepository
-            .saveAll(request.bodyToMono(ParentsModel::class.java).map { it.toEntity() })
-            .flatMap { ok().body(fromValue(it)) }
-            .single()
-
-    fun update(request: ServerRequest): Mono<ServerResponse> =
-        request.bodyToMono(ParentsModel::class.java)
-            .flatMap { parentsRepository.findById(it.id).flatMap { old -> old.update(it) } }
+        request
+            .bodyToMono(ParentsModel::class.java)
+            .map { it.toEntity() }
             .flatMap { parentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
-            .single()
+
+    fun update(request: ServerRequest): Mono<ServerResponse> =
+        request
+            .bodyToMono(ParentsModel::class.java)
+            .zipWhen { parentsRepository.findById(it.id) }
+            .flatMap { it.t2.update(it.t1) }
+            .flatMap { parentsRepository.save(it) }
+            .flatMap { ok().body(fromValue(it)) }
 
     fun delete(request: ServerRequest): Mono<ServerResponse> =
-        parentsRepository
-            .deleteById(request.queryParam("id").orElseThrow().toLong())
+        request
+            .queryParam("id")
+            .orElseThrow()
+            .toLong()
+            .let { parentsRepository.deleteById(it) }
             .flatMap { ok().build() }
 
 }

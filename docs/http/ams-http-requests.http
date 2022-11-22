@@ -15,7 +15,7 @@ Content-Type: application/json
 GET http://localhost:10010/ams/api/students
 
 ### GET student
-GET http://localhost:10010/ams/api/student/2
+GET http://localhost:10010/ams/api/student/1
 
 ### POST update student
 POST http://localhost:10010/ams/api/student/update
@@ -33,3 +33,28 @@ Content-Type: application/json
 
 
 ### POST parents
+POST http://localhost:10010/ams/api/parents
+Content-Type: application/json
+
+{
+  "name":  "김수지",
+  "mobileNumber": "01020748265",
+  "dateOfBirth":  "19900202",
+  "gender": "F",
+  "studentId" : 1
+}
+
+### GET parents
+GET http://localhost:10010/ams/api/parents/1
+
+### GET parents all
+GET http://localhost:10010/ams/api/parents?number=0
+
+### POST parents update
+POST http://localhost:10010/ams/api/parents/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "김수지찡"
+}

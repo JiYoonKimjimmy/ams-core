@@ -5,6 +5,7 @@ import com.ams.core.common.enum.StatusEnum
 import com.ams.core.entity.Parents
 import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
+import reactor.util.function.Tuple2
 
 data class ParentsModel(
 
@@ -17,28 +18,34 @@ data class ParentsModel(
 
 ) {
     companion object {
-        fun of(parents: Parents) = ParentsModel(
-            id = parents.id!!,
-            name = parents.name,
-            mobileNumber = parents.mobileNumber,
-            gender = parents.gender,
-            status = parents.status,
-            studentId = parents.studentId
-        )
 
-        fun of(request: ServerRequest, content: List<ParentsModel>, totalSize: Long) =
-            PageableModel(PageImpl(content, PageableModel.toPageRequest(request), totalSize))
+        fun of(parents: Parents) =
+            ParentsModel(
+                id = parents.id!!,
+                name = parents.name,
+                mobileNumber = parents.mobileNumber,
+                gender = parents.gender,
+                status = parents.status,
+                studentId = parents.studentId
+            )
+
+        fun of(request: ServerRequest, tuple: Tuple2<List<Parents>, Long>) =
+            tuple
+                .t1
+                .map { of(parents = it) }
+                .let { PageableModel(pageable = PageImpl(it, PageableModel.toPageRequest(request), tuple.t2)) }
+
     }
 
-    fun toEntity() = Parents(
-        name = name!!,
-        mobileNumber = mobileNumber!!,
-        gender = gender!!,
-        status = status!!,
-        studentId = studentId!!
-    )
-}
+    fun toEntity() =
+        Parents(
+            name = name!!,
+            mobileNumber = mobileNumber!!,
+            gender = gender!!,
+            studentId = studentId!!
+        )
 
+}
 
 data class GetParentsResponse(
 

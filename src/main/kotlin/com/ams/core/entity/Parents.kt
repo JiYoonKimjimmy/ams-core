@@ -20,13 +20,13 @@ data class Parents(
 
 ) : BaseEntity() {
 
-    fun update(request: ParentsModel) = Mono.just(
+    fun update(request: ParentsModel) =
         this.apply {
             name = request.name ?: name
             mobileNumber = request.mobileNumber ?: mobileNumber
             gender = request.gender ?: gender
             status = request.status ?: status
             studentId = request.studentId ?: studentId
-        })
+        }.let { Mono.just(it) }
 
 }
