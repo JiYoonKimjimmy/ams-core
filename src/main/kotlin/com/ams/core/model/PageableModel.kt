@@ -3,6 +3,7 @@ package com.ams.core.model
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.reactive.function.server.ServerRequest
+import reactor.util.function.Tuple2
 
 open class PageableModel<T>(
     open val number: Int,
@@ -21,6 +22,14 @@ open class PageableModel<T>(
                 request.queryParam("number").orElse("0").toInt(),
                 request.queryParam("size").orElse("10").toInt()
             )
+
+        fun <E, M> toResponse(request: ServerRequest, tuple: Tuple2<List<E>, Long>, convertFunction: (E) -> M): PageableModel<M> {
+            return tuple
+                .t1
+                .map(convertFunction)
+                .let { PageImpl(it, toPageRequest(request = request), tuple.t2) }
+                .let { PageableModel(pageable = it) }
+        }
 
     }
 

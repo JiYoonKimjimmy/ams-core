@@ -3,7 +3,6 @@ package com.ams.core.model
 import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
 import com.ams.core.entity.Parents
-import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 
@@ -29,11 +28,8 @@ data class ParentsModel(
                 studentId = parents.studentId
             )
 
-        fun of(request: ServerRequest, tuple: Tuple2<List<Parents>, Long>) =
-            tuple
-                .t1
-                .map { of(parents = it) }
-                .let { PageableModel(pageable = PageImpl(it, PageableModel.toPageRequest(request), tuple.t2)) }
+        fun of(request: ServerRequest, tuple: Tuple2<List<Parents>, Long>): PageableModel<ParentsModel> =
+            PageableModel.toResponse(request = request, tuple = tuple, convertFunction = this::of)
 
     }
 

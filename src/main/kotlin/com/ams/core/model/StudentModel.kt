@@ -4,7 +4,6 @@ import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
 import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
-import org.springframework.data.domain.PageImpl
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 import javax.validation.constraints.NotNull
@@ -42,11 +41,8 @@ data class StudentModel(
             of(student = tuple.t1)
                 .apply { this.parents = tuple.t2.ifEmpty { null } }
 
-        fun of(request: ServerRequest, tuple: Tuple2<List<Student>, Long>) =
-            tuple
-                .t1
-                .map { of(student = it) }
-                .let { PageableModel(pageable = PageImpl(it, PageableModel.toPageRequest(request), tuple.t2)) }
+        fun of(request: ServerRequest, tuple: Tuple2<List<Student>, Long>): PageableModel<StudentModel> =
+            PageableModel.toResponse(request = request, tuple = tuple, convertFunction = this::of)
 
     }
 
