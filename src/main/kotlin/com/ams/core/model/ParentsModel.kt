@@ -50,6 +50,6 @@ data class GetParentsResponse(
     override val first: Boolean,
     override val last: Boolean,
     override val empty: Boolean,
-    override val content: MutableList<ParentsModel>
+    override val content: List<ParentsModel>
 
 ) : PageableModel<ParentsModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)

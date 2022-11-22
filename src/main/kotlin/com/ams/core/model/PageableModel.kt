@@ -13,7 +13,7 @@ open class PageableModel<T>(
     open val first: Boolean,
     open val last: Boolean,
     open val empty: Boolean,
-    open val content: MutableList<T>
+    open val content: List<T>
 ) {
     companion object {
         fun toPageRequest(request: ServerRequest) =

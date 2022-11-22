@@ -68,7 +68,7 @@ data class GetClassesResponse(
     override val first: Boolean,
     override val last: Boolean,
     override val empty: Boolean,
-    override val content: MutableList<ClassesModel>
+    override val content: List<ClassesModel>
 
 ) : PageableModel<ClassesModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)
 
