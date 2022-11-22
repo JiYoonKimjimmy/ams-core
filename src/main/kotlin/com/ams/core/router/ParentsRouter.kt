@@ -31,9 +31,9 @@ class ParentsRouter(
             method = [RequestMethod.GET],
             path = "/api/parents/{id}",
             beanClass = ParentsHandler::class,
-            beanMethod = "getOne",
+            beanMethod = "findOne",
             operation = Operation(
-                operationId = "getParents",
+                operationId = "findParents",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ParentsModel::class))])]
             )
@@ -42,9 +42,9 @@ class ParentsRouter(
             method = [RequestMethod.GET],
             path = "/api/parents",
             beanClass = ParentsHandler::class,
-            beanMethod = "getAll",
+            beanMethod = "findAll",
             operation = Operation(
-                operationId = "getParents",
+                operationId = "findParents",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
@@ -89,8 +89,8 @@ class ParentsRouter(
     fun parentsRouterFunction() = RouterFunctions.nest(RequestPredicates.path("/api"),
         router {
             listOf(
-                GET("/parents/{id}", parentsHandler::getOne),
-                GET("/parents", parentsHandler::getAll),
+                GET("/parents/{id}", parentsHandler::findOne),
+                GET("/parents", parentsHandler::findAll),
                 POST("/parents", parentsHandler::save),
                 POST("/parents/update", parentsHandler::update),
                 DELETE("/parents", parentsHandler::delete)

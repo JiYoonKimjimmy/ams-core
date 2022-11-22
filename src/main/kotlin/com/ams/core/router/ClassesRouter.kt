@@ -31,9 +31,9 @@ class ClassesRouter(
             method = [RequestMethod.GET],
             path = "/api/class/{id}",
             beanClass = ClassesHandler::class,
-            beanMethod = "getOne",
+            beanMethod = "findOne",
             operation = Operation(
-                operationId = "getClass",
+                operationId = "findClass",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = ClassesModel::class))])]
             )
@@ -42,9 +42,9 @@ class ClassesRouter(
             method = [RequestMethod.GET],
             path = "/api/classes",
             beanClass = ClassesHandler::class,
-            beanMethod = "getAll",
+            beanMethod = "findAll",
             operation = Operation(
-                operationId = "getClasses",
+                operationId = "findClasses",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
@@ -111,8 +111,8 @@ class ClassesRouter(
     fun classesRouterFunction() = nest(path("/api"),
         router {
             listOf(
-                GET("/class/{id}", classesHandler::getOne),
-                GET("/classes", classesHandler::getAll),
+                GET("/class/{id}", classesHandler::findOne),
+                GET("/classes", classesHandler::findAll),
                 POST("/class", classesHandler::save),
                 POST("/class/update", classesHandler::update),
                 DELETE("/class", classesHandler::delete),

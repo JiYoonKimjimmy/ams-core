@@ -31,9 +31,9 @@ class TeachersRouter(
             method = [RequestMethod.GET],
             path = "/api/teacher/{id}",
             beanClass = TeachersHandler::class,
-            beanMethod = "getOne",
+            beanMethod = "findOne",
             operation = Operation(
-                operationId = "getTeacher",
+                operationId = "findTeacher",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = TeacherModel::class))])]
             )
@@ -42,9 +42,9 @@ class TeachersRouter(
             method = [RequestMethod.GET],
             path = "/api/teachers",
             beanClass = TeachersHandler::class,
-            beanMethod = "getAll",
+            beanMethod = "findAll",
             operation = Operation(
-                operationId = "getTeachers",
+                operationId = "findTeachers",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
@@ -89,8 +89,8 @@ class TeachersRouter(
     fun teachersRouterFunction() = nest(path("/api"),
         router {
             listOf(
-                GET("/teacher/{id}", teachersHandler::getOne),
-                GET("/teachers", teachersHandler::getAll),
+                GET("/teacher/{id}", teachersHandler::findOne),
+                GET("/teachers", teachersHandler::findAll),
                 POST("/teacher", teachersHandler::save),
                 POST("/teacher/update", teachersHandler::update),
                 DELETE("/teacher", teachersHandler::delete)

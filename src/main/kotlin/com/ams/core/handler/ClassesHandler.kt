@@ -18,13 +18,13 @@ class ClassesHandler(
     val classSchedulesHandler: ClassSchedulesHandler
 ) {
 
-    fun getOne(request: ServerRequest): Mono<ServerResponse> =
+    fun findOne(request: ServerRequest): Mono<ServerResponse> =
         classesRepository
             .findById(request.pathVariable("id").toLong())
             .map { classSchedulesHandler.getAll(ClassesModel.of(it)) }
             .flatMap { ok().body(it) }
 
-    fun getAll(request: ServerRequest): Mono<ServerResponse> =
+    fun findAll(request: ServerRequest): Mono<ServerResponse> =
         classesRepository
             .findAllBy(PageableModel.toPageRequest(request))
             .map { ClassesModel.of(it) }

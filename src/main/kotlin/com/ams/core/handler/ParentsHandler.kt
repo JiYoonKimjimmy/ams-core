@@ -15,12 +15,12 @@ class ParentsHandler(
     val parentsRepository: ParentsRepository
 ) {
 
-    fun getOne(request: ServerRequest): Mono<ServerResponse> =
+    fun findOne(request: ServerRequest): Mono<ServerResponse> =
         parentsRepository
             .findById(request.pathVariable("id").toLong())
             .flatMap { ok().body(fromValue(ParentsModel.of(it))) }
 
-    fun getAll(request: ServerRequest): Mono<ServerResponse> =
+    fun findAll(request: ServerRequest): Mono<ServerResponse> =
         parentsRepository
             .findAllBy(PageableModel.toPageRequest(request))
             .map { ParentsModel.of(it) }

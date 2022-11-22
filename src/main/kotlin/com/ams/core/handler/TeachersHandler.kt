@@ -15,12 +15,12 @@ class TeachersHandler(
     val teachersRepository: TeachersRepository
 ) {
 
-    fun getOne(request: ServerRequest): Mono<ServerResponse> =
+    fun findOne(request: ServerRequest): Mono<ServerResponse> =
         teachersRepository
             .findById(request.pathVariable("id").toLong())
             .flatMap { ok().body(fromValue(TeacherModel.of(it))) }
 
-    fun getAll(request: ServerRequest): Mono<ServerResponse> =
+    fun findAll(request: ServerRequest): Mono<ServerResponse> =
         teachersRepository
             .findAllBy(PageableModel.toPageRequest(request))
             .map { TeacherModel.of(it) }

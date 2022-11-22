@@ -33,7 +33,7 @@ class StudentsRouter(
             beanClass = StudentsHandler::class,
             beanMethod = "findOne",
             operation = Operation(
-                operationId = "getStudent",
+                operationId = "findStudent",
                 parameters = [Parameter(`in` = ParameterIn.PATH, name = "id")],
                 responses = [ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = StudentModel::class))])]
             )
@@ -44,7 +44,7 @@ class StudentsRouter(
             beanClass = StudentsHandler::class,
             beanMethod = "findAll",
             operation = Operation(
-                operationId = "getStudents",
+                operationId = "findStudents",
                 parameters = [
                     Parameter(`in` = ParameterIn.QUERY, name = "number", example = "0"),
                     Parameter(`in` = ParameterIn.QUERY, name = "size", example = "10")
