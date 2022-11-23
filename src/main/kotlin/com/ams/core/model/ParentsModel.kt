@@ -2,36 +2,29 @@ package com.ams.core.model
 
 import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
+import com.ams.core.common.model.BaseModel
 import com.ams.core.entity.Parents
-import org.springframework.web.reactive.function.server.ServerRequest
-import reactor.util.function.Tuple2
 
-data class ParentsModel(
+class ParentsModel(
 
-    val id: Long,
-    val name: String?,
-    val mobileNumber: String?,
-    val gender: GenderEnum?,
-    val status: StatusEnum?,
-    val studentId: Long?
+    val id: Long = 0,
+    val name: String? = null,
+    val mobileNumber: String? = null,
+    val gender: GenderEnum? = null,
+    val status: StatusEnum? = null,
+    val studentId: Long? = null
 
-) {
-    companion object {
+) : BaseModel<Parents, ParentsModel>() {
 
-        fun of(parents: Parents) =
-            ParentsModel(
-                id = parents.id!!,
-                name = parents.name,
-                mobileNumber = parents.mobileNumber,
-                gender = parents.gender,
-                status = parents.status,
-                studentId = parents.studentId
-            )
-
-        fun of(request: ServerRequest, tuple: Tuple2<List<Parents>, Long>): PageableModel<ParentsModel> =
-            PageableModel.toResponse(request = request, tuple = tuple, convertFunction = this::of)
-
-    }
+    override fun of(entity: Parents): ParentsModel =
+        ParentsModel(
+            id = entity.id!!,
+            name = entity.name,
+            mobileNumber = entity.mobileNumber,
+            gender = entity.gender,
+            status = entity.status,
+            studentId = entity.studentId
+        )
 
     fun toEntity() =
         Parents(

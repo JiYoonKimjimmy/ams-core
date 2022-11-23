@@ -23,13 +23,12 @@ open class PageableModel<T>(
                 request.queryParam("size").orElse("10").toInt()
             )
 
-        fun <E, M> toResponse(request: ServerRequest, tuple: Tuple2<List<E>, Long>, convertFunction: (E) -> M): PageableModel<M> {
-            return tuple
+        fun <E, M> toResponse(request: ServerRequest, tuple: Tuple2<List<E>, Long>, convertFunction: (E) -> M): PageableModel<M> =
+            tuple
                 .t1
                 .map(convertFunction)
                 .let { PageImpl(it, toPageRequest(request = request), tuple.t2) }
                 .let { PageableModel(pageable = it) }
-        }
 
     }
 
