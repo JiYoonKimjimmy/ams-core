@@ -1,4 +1,4 @@
-package com.ams.core.config
+package com.ams.core.infra.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.ServerRequest

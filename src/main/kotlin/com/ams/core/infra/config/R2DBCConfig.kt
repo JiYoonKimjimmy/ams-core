@@ -1,4 +1,4 @@
-package com.ams.core.config
+package com.ams.core.infra.config
 
 import io.r2dbc.h2.H2ConnectionConfiguration
 import io.r2dbc.h2.H2ConnectionFactory

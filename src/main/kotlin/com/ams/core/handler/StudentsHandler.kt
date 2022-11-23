@@ -1,6 +1,6 @@
 package com.ams.core.handler
 
-import com.ams.core.config.ValidatorConfig
+import com.ams.core.infra.config.ValidatorConfig
 import com.ams.core.model.PageableModel
 import com.ams.core.model.StudentModel
 import com.ams.core.repository.StudentsRepository
