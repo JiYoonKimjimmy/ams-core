@@ -20,7 +20,6 @@ class ParentsHandler(
             .pathVariable("id")
             .toLong()
             .let { parentsRepository.findById(it) }
-//            .flatMap { ok().body(fromValue(ParentsModel().of(it))) }
             .flatMap { ok().body(fromValue(ParentsModel.of(it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
@@ -28,7 +27,6 @@ class ParentsHandler(
             .toPageRequest(request = request)
             .let { parentsRepository.findAllBy(pageable = it).collectList() }
             .zipWith(parentsRepository.count())
-//            .flatMap { ok().body(fromValue(ParentsModel().of(request = request, tuple = it))) }
             .flatMap { ok().body(fromValue(ParentsModel.of(request = request, tuple = it))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
