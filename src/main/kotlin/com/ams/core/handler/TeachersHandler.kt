@@ -16,34 +16,41 @@ class TeachersHandler(
 ) {
 
     fun findOne(request: ServerRequest): Mono<ServerResponse> =
-        teachersRepository
-            .findById(request.pathVariable("id").toLong())
-            .flatMap { ok().body(fromValue(TeacherModel.of(it))) }
+        request
+            .pathVariable("id")
+            .toLong()
+            .let { teachersRepository.findById(it) }
+            .flatMap { ok().body(fromValue(TeacherModel.of(entity = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        teachersRepository
-            .findAllBy(PageableModel.toPageRequest(request))
-            .map { TeacherModel.of(it) }
-            .collectList()
+        PageableModel
+            .toPageRequest(request = request)
+            .let { teachersRepository.findAllBy(pageable = it).collectList() }
             .zipWith(teachersRepository.count())
-            .flatMap { ok().body(fromValue(TeacherModel.of(request, it.t1, it.t2))) }
+            .flatMap { ok().body(fromValue(TeacherModel.of(request = request, tuple = it))) }
 
     fun save(request: ServerRequest): Mono<ServerResponse> =
-        teachersRepository
-            .saveAll(request.bodyToMono(TeacherModel::class.java).map { it.toEntity() })
-            .flatMap { ok().body(fromValue(it)) }
-            .single()
-
-    fun update(request: ServerRequest): Mono<ServerResponse> =
-        request.bodyToMono(TeacherModel::class.java)
-            .flatMap { teachersRepository.findById(it.id).flatMap { old -> old.update(it) } }
+        request
+            .bodyToMono(TeacherModel::class.java)
+            .map { it.toEntity() }
             .flatMap { teachersRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
             .single()
 
+    fun update(request: ServerRequest): Mono<ServerResponse> =
+        request
+            .bodyToMono(TeacherModel::class.java)
+            .zipWhen { teachersRepository.findById(it.id) }
+            .flatMap { it.t2.update(request = it.t1) }
+            .flatMap { teachersRepository.save(it) }
+            .flatMap { ok().body(fromValue(it)) }
+
     fun delete(request: ServerRequest): Mono<ServerResponse> =
-        teachersRepository
-            .deleteById(request.queryParam("id").orElseThrow().toLong())
+        request
+            .queryParam("id")
+            .orElseThrow()
+            .toLong()
+            .let { teachersRepository.deleteById(it) }
             .flatMap { ok().build() }
 
 }
