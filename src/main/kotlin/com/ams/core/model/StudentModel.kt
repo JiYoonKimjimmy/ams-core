@@ -2,9 +2,9 @@ package com.ams.core.model
 
 import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
+import com.ams.core.common.model.BaseModel
 import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
-import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -23,26 +23,22 @@ data class StudentModel(
     val status: StatusEnum?,
     var parents: List<Parents>? = null
 ) {
-    companion object {
+    companion object : BaseModel<Student, StudentModel>() {
 
-        fun of(student: Student) =
+        override fun of(entity: Student) =
             StudentModel(
-                id = student.id!!,
-                name = student.name,
-                mobileNumber = student.mobileNumber,
-                dateOfBirth = student.dateOfBirth,
-                gender = student.gender,
-                school = student.school,
-                grade = student.grade,
-                status = student.status
+                id = entity.id!!,
+                name = entity.name,
+                mobileNumber = entity.mobileNumber,
+                dateOfBirth = entity.dateOfBirth,
+                gender = entity.gender,
+                school = entity.school,
+                grade = entity.grade,
+                status = entity.status
             )
 
         fun of(tuple: Tuple2<Student, List<Parents>>): StudentModel =
-            of(student = tuple.t1)
-                .apply { this.parents = tuple.t2.ifEmpty { null } }
-
-        fun of(request: ServerRequest, tuple: Tuple2<List<Student>, Long>): PageableModel<StudentModel> =
-            PageableModel.toResponse(request = request, tuple = tuple, convertFunction = this::of)
+            of(entity = tuple.t1).apply { this.parents = tuple.t2.ifEmpty { null } }
 
     }
 
