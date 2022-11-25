@@ -22,7 +22,7 @@ data class StudentModel(
     val school: String?,
     val grade: String?,
     val status: StatusEnum?,
-    var parents: List<Parents>? = null
+    var parents: List<ParentsModel>? = null
 ) {
     companion object : BaseModel<Student, StudentModel>() {
 
@@ -39,7 +39,7 @@ data class StudentModel(
             )
 
         fun of(tuple: Tuple2<Student, List<Parents>>): StudentModel =
-            of(entity = tuple.t1).apply { this.parents = tuple.t2.ifEmpty { null } }
+            of(entity = tuple.t1).apply { this.parents = tuple.t2.ifEmpty { null }?.map(ParentsModel::of) }
 
     }
 
