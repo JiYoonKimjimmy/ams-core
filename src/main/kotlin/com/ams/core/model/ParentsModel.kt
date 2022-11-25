@@ -14,17 +14,19 @@ class ParentsModel(
     val status: StatusEnum? = null,
     val studentId: Long? = null
 
-) : BaseModel<Parents, ParentsModel>() {
+) {
 
-    override fun of(entity: Parents): ParentsModel =
-        ParentsModel(
-            id = entity.id!!,
-            name = entity.name,
-            mobileNumber = entity.mobileNumber,
-            gender = entity.gender,
-            status = entity.status,
-            studentId = entity.studentId
-        )
+    companion object: BaseModel<Parents, ParentsModel>() {
+        override fun of(entity: Parents) =
+            ParentsModel(
+                id = entity.id!!,
+                name = entity.name,
+                mobileNumber = entity.mobileNumber,
+                gender = entity.gender,
+                status = entity.status,
+                studentId = entity.studentId
+            )
+    }
 
     fun toEntity() =
         Parents(
