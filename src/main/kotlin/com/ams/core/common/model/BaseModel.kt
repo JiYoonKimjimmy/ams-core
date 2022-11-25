@@ -1,6 +1,5 @@
 package com.ams.core.common.model
 
-import com.ams.core.model.PageableModel
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 

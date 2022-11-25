@@ -3,6 +3,7 @@ package com.ams.core.model
 import com.ams.core.common.enum.GenderEnum
 import com.ams.core.common.enum.StatusEnum
 import com.ams.core.common.model.BaseModel
+import com.ams.core.common.model.PageableModel
 import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
 import reactor.util.function.Tuple2

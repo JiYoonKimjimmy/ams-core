@@ -2,7 +2,7 @@ package com.ams.core.handler
 
 import com.ams.core.model.ClassSchedulesModel
 import com.ams.core.model.ClassesModel
-import com.ams.core.model.PageableModel
+import com.ams.core.common.model.PageableModel
 import com.ams.core.repository.ClassesRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromValue
