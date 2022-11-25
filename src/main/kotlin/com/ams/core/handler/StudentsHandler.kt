@@ -24,7 +24,7 @@ class StudentsHandler(
             .pathVariable("id")
             .toLong()
             .let { studentsRepository.findById(it) }
-            .zipWhen { parentsService.findAllByStudent(studentId = it.id!!).collectList() }
+            .zipWhen { parentsService.findAllByStudentId(studentId = it.id!!).collectList() }
             .flatMap { ok().body(fromValue(StudentModel.of(tuple = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =

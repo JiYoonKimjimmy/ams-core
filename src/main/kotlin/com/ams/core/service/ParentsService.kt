@@ -8,6 +8,6 @@ class ParentsService(
     val parentsRepository: ParentsRepository
 ) {
 
-    fun findAllByStudent(studentId: Long) = parentsRepository.findAllByStudentId(studentId = studentId)
+    fun findAllByStudentId(studentId: Long) = parentsRepository.findAllByStudentId(studentId = studentId)
 
 }
