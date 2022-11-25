@@ -20,7 +20,7 @@ class ParentsHandler(
             .pathVariable("id")
             .toLong()
             .let { parentsRepository.findById(it) }
-            .flatMap { ok().body(fromValue(ParentsModel.of(it))) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(entity = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
         PageableModel
@@ -40,7 +40,7 @@ class ParentsHandler(
         request
             .bodyToMono(ParentsModel::class.java)
             .zipWhen { parentsRepository.findById(it.id) }
-            .flatMap { it.t2.update(it.t1) }
+            .flatMap { it.t2.update(request = it.t1) }
             .flatMap { parentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
 

@@ -52,7 +52,7 @@ class StudentsHandler(
         request
             .bodyToMono(StudentModel::class.java)
             .zipWhen { studentsRepository.findById(it.id) }
-            .flatMap { it.t2.update(it.t1) }
+            .flatMap { it.t2.update(request = it.t1) }
             .flatMap { studentsRepository.save(it) }
             .flatMap { ok().body(fromValue(it)) }
 

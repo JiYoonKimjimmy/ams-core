@@ -6,15 +6,15 @@ import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 
 open class PageableModel<T>(
-    open val number: Int,
-    open val size: Int,
-    open val numberOfElements: Int,
-    open val totalPages: Int,
-    open val totalElements: Long,
-    open val first: Boolean,
-    open val last: Boolean,
-    open val empty: Boolean,
-    open val content: List<T>
+    open val number: Int = 0,
+    open val size: Int = 0,
+    open val numberOfElements: Int = 0,
+    open val totalPages: Int = 0,
+    open val totalElements: Long = 0,
+    open val first: Boolean = false,
+    open val last: Boolean = false,
+    open val empty: Boolean = false,
+    open val content: List<T> = listOf()
 ) {
     companion object {
         fun toPageRequest(request: ServerRequest) =
