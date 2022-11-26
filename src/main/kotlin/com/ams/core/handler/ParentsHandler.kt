@@ -34,7 +34,7 @@ class ParentsHandler(
             .bodyToMono(ParentsModel::class.java)
             .map { it.toEntity() }
             .flatMap { parentsRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(entity = it))) }
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
         request
@@ -42,7 +42,7 @@ class ParentsHandler(
             .zipWhen { parentsRepository.findById(it.id) }
             .flatMap { it.t2.update(request = it.t1) }
             .flatMap { parentsRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(ParentsModel.of(entity = it))) }
 
     fun delete(request: ServerRequest): Mono<ServerResponse> =
         request

@@ -34,7 +34,7 @@ class TeachersHandler(
             .bodyToMono(TeacherModel::class.java)
             .map { it.toEntity() }
             .flatMap { teachersRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(TeacherModel.of(entity = it))) }
             .single()
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
@@ -43,7 +43,7 @@ class TeachersHandler(
             .zipWhen { teachersRepository.findById(it.id) }
             .flatMap { it.t2.update(request = it.t1) }
             .flatMap { teachersRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(TeacherModel.of(entity = it))) }
 
     fun delete(request: ServerRequest): Mono<ServerResponse> =
         request

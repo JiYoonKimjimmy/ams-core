@@ -39,14 +39,14 @@ class StudentsHandler(
             .bodyToMono(StudentModel::class.java)
             .map { it.toEntity()}
             .flatMap { studentsRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(StudentModel.of(entity = it))) }
 
     fun saveWithValidation(request: ServerRequest): Mono<ServerResponse> =
         validatorConfig
             .requireValidation(request = request, bodyClass = StudentModel::class.java)
             .map { it.toEntity()}
             .flatMap { studentsRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(StudentModel.of(entity = it))) }
 
     fun update(request: ServerRequest): Mono<ServerResponse> =
         request
@@ -54,7 +54,7 @@ class StudentsHandler(
             .zipWhen { studentsRepository.findById(it.id) }
             .flatMap { it.t2.update(request = it.t1) }
             .flatMap { studentsRepository.save(it) }
-            .flatMap { ok().body(fromValue(it)) }
+            .flatMap { ok().body(fromValue(StudentModel.of(entity = it))) }
 
     fun delete(request: ServerRequest): Mono<ServerResponse> =
         request
