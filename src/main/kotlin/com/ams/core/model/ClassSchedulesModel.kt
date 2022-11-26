@@ -1,5 +1,6 @@
 package com.ams.core.model
 
+import com.ams.core.common.model.BaseModel
 import com.ams.core.entity.ClassSchedules
 
 data class ClassSchedulesModel(
@@ -16,18 +17,19 @@ data class ClassSchedulesModel(
     val classId: Long?
 
 ) {
-    companion object {
-        fun of(classSchedules: ClassSchedules) = ClassSchedulesModel(
-            id = classSchedules.id!!,
-            type = classSchedules.type,
-            year = classSchedules.year,
-            month = classSchedules.month,
-            day = classSchedules.day,
-            hour = classSchedules.hour,
-            minute = classSchedules.minute,
-            timeDuration = classSchedules.timeDuration,
-            status = classSchedules.status,
-            classId = classSchedules.classId,
-        )
+    companion object : BaseModel<ClassSchedules, ClassSchedulesModel>() {
+        override fun of(entity: ClassSchedules) =
+            ClassSchedulesModel(
+                id = entity.id!!,
+                type = entity.type,
+                year = entity.year,
+                month = entity.month,
+                day = entity.day,
+                hour = entity.hour,
+                minute = entity.minute,
+                timeDuration = entity.timeDuration,
+                status = entity.status,
+                classId = entity.classId,
+            )
     }
 }

@@ -3,15 +3,15 @@ package com.ams.core.model
 import com.ams.core.common.COMMA
 import com.ams.core.common.enum.ClassStatusEnum
 import com.ams.core.common.enum.DayOfWeekEnum
+import com.ams.core.common.model.BaseModel
 import com.ams.core.common.model.PageableModel
+import com.ams.core.entity.ClassSchedules
 import com.ams.core.entity.Classes
-import org.springframework.data.domain.PageImpl
-import org.springframework.web.reactive.function.server.ServerRequest
+import reactor.util.function.Tuple2
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 data class ClassesModel(
-
     val id: Long,
     val teacherId: Long?,
     val name: String?,
@@ -23,24 +23,27 @@ data class ClassesModel(
     val timeDuration: String?,
     val status: ClassStatusEnum? = ClassStatusEnum.READY,
     var schedules: List<ClassSchedulesModel>? = null
-
 ) {
-    companion object {
-        fun of(classes: Classes) = ClassesModel(
-            id = classes.id!!,
-            name = classes.name,
-            type = classes.type,
-            startDate = classes.startDate.format(DateTimeFormatter.ISO_DATE),
-            endDate = classes.endDate.format(DateTimeFormatter.ISO_DATE),
-            dayOfWeek = classes.getDayOfWeek(),
-            weeklyRepeat = classes.weeklyRepeat,
-            status = classes.status,
-            timeDuration = classes.timeDuration,
-            teacherId = classes.teacherId
-        )
 
-        fun of(request: ServerRequest, content: List<ClassesModel>, totalSize: Long) =
-            PageableModel(PageImpl(content, PageableModel.toPageRequest(request), totalSize))
+    companion object : BaseModel<Classes, ClassesModel>() {
+
+        override fun of(entity: Classes) =
+            ClassesModel(
+                id = entity.id!!,
+                name = entity.name,
+                type = entity.type,
+                startDate = entity.startDate.format(DateTimeFormatter.ISO_DATE),
+                endDate = entity.endDate.format(DateTimeFormatter.ISO_DATE),
+                dayOfWeek = entity.getDayOfWeek(),
+                weeklyRepeat = entity.weeklyRepeat,
+                status = entity.status,
+                timeDuration = entity.timeDuration,
+                teacherId = entity.teacherId
+            )
+
+        fun of(tuple: Tuple2<Classes, List<ClassSchedules>>): ClassesModel =
+            of(entity = tuple.t1).apply { this.schedules = tuple.t2.ifEmpty { null }?.map(ClassSchedulesModel::of) }
+
     }
 
     fun toEntity() = Classes(
@@ -59,19 +62,7 @@ data class ClassesModel(
 
 }
 
-data class GetClassesResponse(
-
-    override val number: Int,
-    override val size: Int,
-    override val numberOfElements: Int,
-    override val totalPages: Int,
-    override val totalElements: Long,
-    override val first: Boolean,
-    override val last: Boolean,
-    override val empty: Boolean,
-    override val content: List<ClassesModel>
-
-) : PageableModel<ClassesModel>(number, size, numberOfElements, totalPages, totalElements, first, last, empty, content)
+class GetClassesResponse : PageableModel<ClassesModel>()
 
 data class DayOfWeekModel(
 
