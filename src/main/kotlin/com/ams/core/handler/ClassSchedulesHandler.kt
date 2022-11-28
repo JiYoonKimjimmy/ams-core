@@ -28,20 +28,20 @@ class ClassSchedulesHandler(
             }
 
     fun saveAll(classes: Classes): Flux<ClassSchedules> =
-        classes.getDayOfWeek().let { dayOfWeeks ->
-            (classes.startDate..classes.endDate)
-                .filter {
-                    dayOfWeeks.map(DayOfWeekModel::day).contains(DayOfWeekEnum.valueOf(it.getDisplayDayOfWeek()))
-                }.map {
-                    dayOfWeeks.find { c -> c.day.name == it.getDisplayDayOfWeek() }!!.let { c ->
-                        it.atTime(c.hour.toInt(), c.minute.toInt())
+        classes
+            .getDayOfWeek()
+            .let { dayOfWeeks ->
+                (classes.startDate..classes.endDate)
+                    .filter { dayOfWeeks.map(DayOfWeekModel::day).contains(DayOfWeekEnum.valueOf(it.getDisplayDayOfWeek())) }
+                    .map {
+                        dayOfWeeks
+                            .find { c -> c.day.name == it.getDisplayDayOfWeek() }!!
+                            .let { c -> it.atTime(c.hour.toInt(), c.minute.toInt())
+                        }
                     }
-                }.map {
-                    ClassSchedules.ready(classes, it)
-                }
-        }.let {
-            classSchedulesRepository.saveAll(it)
-        }
+                    .map { ClassSchedules.toReady(classes, it) }
+            }
+            .let { classSchedulesRepository.saveAll(it) }
 
     fun update(request: ServerRequest): Mono<ClassSchedules> =
         request.bodyToMono(ClassSchedulesModel::class.java)

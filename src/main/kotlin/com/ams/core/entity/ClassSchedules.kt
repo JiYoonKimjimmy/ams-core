@@ -28,7 +28,7 @@ data class ClassSchedules(
 
 ) : BaseEntity() {
     companion object {
-        fun ready(classes: Classes, dateTime: LocalDateTime) =
+        fun toReady(classes: Classes, dateTime: LocalDateTime) =
             ClassSchedules(
                 type = ClassScheduleTypeEnum.REGULAR.name,
                 year = dateTime.year.toString(),
