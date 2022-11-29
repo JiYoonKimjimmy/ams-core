@@ -2,8 +2,8 @@ package com.ams.core.model
 
 import com.ams.core.common.enumerate.GenderEnum
 import com.ams.core.common.enumerate.StatusEnum
-import com.ams.core.common.model.BaseModel
-import com.ams.core.common.model.PageableModel
+import com.ams.core.common.base.BaseModel
+import com.ams.core.common.base.PageableModel
 import com.ams.core.entity.Parents
 import com.ams.core.entity.Student
 import reactor.util.function.Tuple2

@@ -1,5 +1,6 @@
 package com.ams.core.entity
 
+import com.ams.core.common.base.BaseEntity
 import com.ams.core.common.enumerate.StatusEnum
 import com.ams.core.model.TeacherModel
 import org.springframework.data.annotation.Id

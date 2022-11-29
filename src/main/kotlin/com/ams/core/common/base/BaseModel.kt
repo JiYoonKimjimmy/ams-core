@@ -1,4 +1,4 @@
-package com.ams.core.common.model
+package com.ams.core.common.base
 
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2

@@ -1,6 +1,7 @@
 package com.ams.core.entity
 
 import com.ams.core.common.COMMA
+import com.ams.core.common.base.BaseEntity
 import com.ams.core.common.enumerate.ClassStatusEnum
 import com.ams.core.model.ClassesModel
 import com.ams.core.model.DayOfWeekModel

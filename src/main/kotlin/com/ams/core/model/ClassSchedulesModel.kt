@@ -1,6 +1,6 @@
 package com.ams.core.model
 
-import com.ams.core.common.model.BaseModel
+import com.ams.core.common.base.BaseModel
 import com.ams.core.entity.ClassSchedules
 
 data class ClassSchedulesModel(

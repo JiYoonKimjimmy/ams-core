@@ -1,4 +1,4 @@
-package com.ams.core.common.model
+package com.ams.core.common.base
 
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest

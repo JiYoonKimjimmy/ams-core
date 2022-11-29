@@ -1,6 +1,6 @@
 package com.ams.core.handler
 
-import com.ams.core.common.model.PageableModel
+import com.ams.core.common.base.PageableModel
 import com.ams.core.model.TeacherModel
 import com.ams.core.repository.TeachersRepository
 import org.springframework.stereotype.Component

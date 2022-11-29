@@ -1,4 +1,4 @@
-package com.ams.core.entity
+package com.ams.core.common.base
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
