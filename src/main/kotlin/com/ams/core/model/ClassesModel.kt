@@ -1,8 +1,8 @@
 package com.ams.core.model
 
 import com.ams.core.common.COMMA
-import com.ams.core.common.enum.ClassStatusEnum
-import com.ams.core.common.enum.DayOfWeekEnum
+import com.ams.core.common.enumerate.ClassStatusEnum
+import com.ams.core.common.enumerate.DayOfWeekEnum
 import com.ams.core.common.model.BaseModel
 import com.ams.core.common.model.PageableModel
 import com.ams.core.entity.ClassSchedules

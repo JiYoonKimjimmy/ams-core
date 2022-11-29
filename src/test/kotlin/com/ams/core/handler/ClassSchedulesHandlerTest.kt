@@ -1,9 +1,9 @@
 package com.ams.core.handler
 
 import com.ams.core.common.COMMA
-import com.ams.core.common.enum.ClassScheduleTypeEnum
-import com.ams.core.common.enum.ClassStatusEnum
-import com.ams.core.common.enum.DayOfWeekEnum
+import com.ams.core.common.enumerate.ClassScheduleTypeEnum
+import com.ams.core.common.enumerate.ClassStatusEnum
+import com.ams.core.common.enumerate.DayOfWeekEnum
 import com.ams.core.entity.ClassSchedules
 import com.ams.core.entity.addPreZero
 import com.ams.core.entity.getDisplayDayOfWeek

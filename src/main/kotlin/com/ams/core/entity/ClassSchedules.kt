@@ -1,7 +1,7 @@
 package com.ams.core.entity
 
-import com.ams.core.common.enum.ClassScheduleTypeEnum
-import com.ams.core.common.enum.ClassStatusEnum
+import com.ams.core.common.enumerate.ClassScheduleTypeEnum
+import com.ams.core.common.enumerate.ClassStatusEnum
 import com.ams.core.model.ClassSchedulesModel
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table

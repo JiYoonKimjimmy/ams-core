@@ -1,7 +1,7 @@
 package com.ams.core.entity
 
-import com.ams.core.common.enum.GenderEnum
-import com.ams.core.common.enum.StatusEnum
+import com.ams.core.common.enumerate.GenderEnum
+import com.ams.core.common.enumerate.StatusEnum
 import com.ams.core.model.ParentsModel
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table

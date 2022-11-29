@@ -1,6 +1,6 @@
 package com.ams.core.handler
 
-import com.ams.core.common.enum.DayOfWeekEnum
+import com.ams.core.common.enumerate.DayOfWeekEnum
 import com.ams.core.entity.ClassSchedules
 import com.ams.core.entity.Classes
 import com.ams.core.entity.getDisplayDayOfWeek

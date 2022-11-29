@@ -1,4 +1,4 @@
-package com.ams.core.common.enum
+package com.ams.core.common.enumerate
 
 enum class GenderEnum(val value: String) {
     M("Male"),
