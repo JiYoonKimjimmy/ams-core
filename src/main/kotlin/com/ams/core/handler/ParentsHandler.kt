@@ -40,7 +40,7 @@ class ParentsHandler(
         request
             .bodyToMono(ParentsModel::class.java)
             .zipWhen { parentsRepository.findById(it.id) }
-            .flatMap { it.t2.update(request = it.t1) }
+            .flatMap { it.t2.update(model = it.t1) }
             .flatMap { parentsRepository.save(it) }
             .flatMap { BaseResponse.ok(body = ParentsModel.of(entity = it)) }
 

@@ -25,23 +25,23 @@ data class Classes(
     var timeDuration: String,
     var status: ClassStatusEnum = ClassStatusEnum.READY
 
-) : BaseEntity() {
+) : BaseEntity<Classes, ClassesModel>() {
+
+    override fun update(model: ClassesModel) =
+        this.apply {
+            name = model.name ?: name
+            type = model.type ?: type
+            startDate = convertDate(model.startDate) ?: startDate
+            endDate = convertDate(model.endDate) ?: endDate
+            dayOfWeek = model.getDayOfWeek() ?: dayOfWeek
+            weeklyRepeat = model.weeklyRepeat ?: weeklyRepeat
+            status = model.status ?: status
+            timeDuration = model.timeDuration ?: timeDuration
+            teacherId = model.teacherId ?: teacherId
+        }.let { Mono.just(it) }
 
     fun getDayOfWeek() = dayOfWeek.split(COMMA).map(DayOfWeekModel::parse)
 
-    fun update(request: ClassesModel) = Mono.just(
-        this.apply {
-            name = request.name ?: name
-            type = request.type ?: type
-            startDate = convertDate(request.startDate, startDate)
-            endDate = convertDate(request.endDate, endDate)
-            dayOfWeek = request.getDayOfWeek() ?: dayOfWeek
-            weeklyRepeat = request.weeklyRepeat ?: weeklyRepeat
-            status = request.status ?: status
-            timeDuration = request.timeDuration ?: timeDuration
-            teacherId = request.teacherId ?: teacherId
-        })
-
-    private fun convertDate(request: String?, defaultDate: LocalDate) = request?.let { LocalDate.parse(it) } ?: defaultDate
+    private fun convertDate(request: String?) = request?.let { LocalDate.parse(it) }
 
 }

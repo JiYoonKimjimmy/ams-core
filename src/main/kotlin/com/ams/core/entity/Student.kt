@@ -21,17 +21,17 @@ data class Student(
     var grade: String,
     var status: StatusEnum = StatusEnum.ACTIVE
 
-) : BaseEntity() {
+) : BaseEntity<Student, StudentModel>() {
 
-    fun update(request: StudentModel) =
+    override fun update(model: StudentModel) =
         this.apply {
-            name = request.name ?: name
-            mobileNumber = request.mobileNumber ?: mobileNumber
-            dateOfBirth = request.dateOfBirth ?: dateOfBirth
-            gender = request.gender ?: gender
-            school = request.school ?: school
-            grade = request.grade ?: grade
-            status = request.status ?: status
+            name = model.name ?: name
+            mobileNumber = model.mobileNumber ?: mobileNumber
+            dateOfBirth = model.dateOfBirth ?: dateOfBirth
+            gender = model.gender ?: gender
+            school = model.school ?: school
+            grade = model.grade ?: grade
+            status = model.status ?: status
         }.let { Mono.just(it) }
 
 }

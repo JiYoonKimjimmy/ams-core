@@ -16,13 +16,13 @@ data class Teacher(
     var mobileNumber: String,
     var status: StatusEnum = StatusEnum.ACTIVE
 
-) : BaseEntity() {
+) : BaseEntity<Teacher, TeacherModel>() {
 
-    fun update(request: TeacherModel) = Mono.just(
+    override fun update(model: TeacherModel) =
         this.apply {
-            name = request.name ?: name
-            mobileNumber = request.mobileNumber ?: mobileNumber
-            status = request.status ?: status
-        })
+            name = model.name ?: name
+            mobileNumber = model.mobileNumber ?: mobileNumber
+            status = model.status ?: status
+        }.let { Mono.just(it) }
 
 }

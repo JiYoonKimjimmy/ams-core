@@ -41,7 +41,7 @@ class TeachersHandler(
         request
             .bodyToMono(TeacherModel::class.java)
             .zipWhen { teachersRepository.findById(it.id) }
-            .flatMap { it.t2.update(request = it.t1) }
+            .flatMap { it.t2.update(model = it.t1) }
             .flatMap { teachersRepository.save(it) }
             .flatMap { ok().body(fromValue(TeacherModel.of(entity = it))) }
 

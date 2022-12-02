@@ -27,7 +27,8 @@ data class ClassSchedules(
     var timeDuration: String? = "",
     var status: String
 
-) : BaseEntity() {
+) : BaseEntity<ClassSchedules, ClassSchedulesModel>() {
+
     companion object {
         fun toReady(classes: Classes, dateTime: LocalDateTime) =
             ClassSchedules(
@@ -43,19 +44,20 @@ data class ClassSchedules(
             )
     }
 
-    fun update(request: ClassSchedulesModel) = Mono.just(
+    override fun update(model: ClassSchedulesModel) =
         this.apply {
-            type = request.type ?: type
-            year = request.year ?: year
-            month = request.month ?: month
-            day = request.day ?: day
-            hour = request.hour ?: hour
-            minute = request.minute ?: minute
-            timeDuration = request.timeDuration ?: timeDuration
-            status = request.status ?: status
-        })
+            type = model.type ?: type
+            year = model.year ?: year
+            month = model.month ?: month
+            day = model.day ?: day
+            hour = model.hour ?: hour
+            minute = model.minute ?: minute
+            timeDuration = model.timeDuration ?: timeDuration
+            status = model.status ?: status
+        }.let { Mono.just(it) }
 
 }
 
 fun LocalDate.getDisplayDayOfWeek() = this.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US).uppercase()
+
 fun Int.addPreZero() = if (this < 10) "0$this" else "$this"

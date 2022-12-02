@@ -19,15 +19,15 @@ data class Parents(
     var gender: GenderEnum,
     var status: StatusEnum = StatusEnum.ACTIVE
 
-) : BaseEntity() {
+) : BaseEntity<Parents, ParentsModel>() {
 
-    fun update(request: ParentsModel) =
+    override fun update(model: ParentsModel) =
         this.apply {
-            name = request.name ?: name
-            mobileNumber = request.mobileNumber ?: mobileNumber
-            gender = request.gender ?: gender
-            status = request.status ?: status
-            studentId = request.studentId ?: studentId
+            name = model.name ?: name
+            mobileNumber = model.mobileNumber ?: mobileNumber
+            gender = model.gender ?: gender
+            status = model.status ?: status
+            studentId = model.studentId ?: studentId
         }.let { Mono.just(it) }
 
 }
