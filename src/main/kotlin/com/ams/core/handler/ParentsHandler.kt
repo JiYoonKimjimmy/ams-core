@@ -2,7 +2,7 @@ package com.ams.core.handler
 
 import com.ams.core.common.base.BaseHandler
 import com.ams.core.common.base.BaseResponse
-import com.ams.core.common.base.PageableModel
+import com.ams.core.common.toPageRequest
 import com.ams.core.model.ParentsModel
 import com.ams.core.repository.ParentsRepository
 import org.springframework.stereotype.Component
@@ -23,8 +23,8 @@ class ParentsHandler(
             .flatMap { BaseResponse.ok(body = ParentsModel.of(entity = it)) }
 
     override fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        PageableModel
-            .toPageRequest(request = request)
+        request
+            .toPageRequest()
             .let { parentsRepository.findAllBy(pageable = it).collectList() }
             .zipWith(parentsRepository.count())
             .flatMap { BaseResponse.ok(body = ParentsModel.of(request = request, tuple = it)) }

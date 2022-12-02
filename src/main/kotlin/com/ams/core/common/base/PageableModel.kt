@@ -1,7 +1,7 @@
 package com.ams.core.common.base
 
+import com.ams.core.common.toPageRequest
 import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.PageRequest
 import org.springframework.web.reactive.function.server.ServerRequest
 import reactor.util.function.Tuple2
 
@@ -17,19 +17,12 @@ open class PageableModel<T>(
     open val content: List<T> = listOf()
 ) {
     companion object {
-        fun toPageRequest(request: ServerRequest) =
-            PageRequest.of(
-                request.queryParam("number").orElse("0").toInt(),
-                request.queryParam("size").orElse("10").toInt()
-            )
-
         fun <E, M> toResponse(request: ServerRequest, tuple: Tuple2<List<E>, Long>, convertFunction: (E) -> M): PageableModel<M> =
             tuple
                 .t1
                 .map(convertFunction)
-                .let { PageImpl(it, toPageRequest(request = request), tuple.t2) }
+                .let { PageImpl(it, request.toPageRequest(), tuple.t2) }
                 .let { PageableModel(pageable = it) }
-
     }
 
     constructor(pageable: PageImpl<T>): this(

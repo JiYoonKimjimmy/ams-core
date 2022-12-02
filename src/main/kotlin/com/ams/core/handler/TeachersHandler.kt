@@ -1,6 +1,6 @@
 package com.ams.core.handler
 
-import com.ams.core.common.base.PageableModel
+import com.ams.core.common.toPageRequest
 import com.ams.core.model.TeacherModel
 import com.ams.core.repository.TeachersRepository
 import org.springframework.stereotype.Component
@@ -23,8 +23,8 @@ class TeachersHandler(
             .flatMap { ok().body(fromValue(TeacherModel.of(entity = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        PageableModel
-            .toPageRequest(request = request)
+        request
+            .toPageRequest()
             .let { teachersRepository.findAllBy(pageable = it).collectList() }
             .zipWith(teachersRepository.count())
             .flatMap { ok().body(fromValue(TeacherModel.of(request = request, tuple = it))) }

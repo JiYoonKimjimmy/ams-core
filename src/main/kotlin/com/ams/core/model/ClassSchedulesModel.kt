@@ -32,4 +32,18 @@ data class ClassSchedulesModel(
                 classId = entity.classId,
             )
     }
+
+    fun toEntity() =
+        ClassSchedules(
+            type = type!!,
+            year = year!!,
+            month = month!!,
+            day = day!!,
+            hour = hour!!,
+            minute = minute!!,
+            timeDuration = timeDuration!!,
+            status = status!!,
+            classId = classId!!,
+        )
+
 }

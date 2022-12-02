@@ -1,6 +1,6 @@
 package com.ams.core.handler
 
-import com.ams.core.common.base.PageableModel
+import com.ams.core.common.toPageRequest
 import com.ams.core.model.ClassSchedulesModel
 import com.ams.core.model.ClassesModel
 import com.ams.core.repository.ClassesRepository
@@ -28,8 +28,8 @@ class ClassesHandler(
             .flatMap { ok().body(fromValue(ClassesModel.of(tuple = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        PageableModel
-            .toPageRequest(request = request)
+        request
+            .toPageRequest()
             .let { classesRepository.findAllBy(pageable = it) }
             .collectList()
             .zipWith(classesRepository.count())

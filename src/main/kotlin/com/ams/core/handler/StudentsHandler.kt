@@ -1,7 +1,7 @@
 package com.ams.core.handler
 
+import com.ams.core.common.toPageRequest
 import com.ams.core.infra.config.ValidatorConfig
-import com.ams.core.common.base.PageableModel
 import com.ams.core.model.StudentModel
 import com.ams.core.repository.StudentsRepository
 import com.ams.core.service.ParentsService
@@ -28,8 +28,8 @@ class StudentsHandler(
             .flatMap { ok().body(fromValue(StudentModel.of(tuple = it))) }
 
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
-        PageableModel
-            .toPageRequest(request = request)
+        request
+            .toPageRequest()
             .let { studentsRepository.findAllBy(pageable = it).collectList() }
             .zipWith(studentsRepository.count())
             .flatMap { ok().body(fromValue(StudentModel.of(request = request, tuple = it))) }
