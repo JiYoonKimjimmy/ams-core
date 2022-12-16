@@ -33,7 +33,7 @@ class R2DBCConfig : AbstractR2dbcConfiguration() {
     override fun connectionFactory(): ConnectionFactory =
         H2ConnectionConfiguration
             .builder()
-            .file("~/h2/ams;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO")
+            .file("~/h2/ams;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO;MODE=MYSQL")
             .username("admin")
             .password("admin1234")
             .build()

@@ -1,6 +1,7 @@
 package com.ams.core.model
 
 import com.ams.core.common.base.BaseModel
+import com.ams.core.common.base.PageableModel
 import com.ams.core.entity.ClassSchedules
 
 data class ClassSchedulesModel(
@@ -47,3 +48,5 @@ data class ClassSchedulesModel(
         )
 
 }
+
+class GetClassSchedulesResponse : PageableModel<ClassSchedulesModel>()
