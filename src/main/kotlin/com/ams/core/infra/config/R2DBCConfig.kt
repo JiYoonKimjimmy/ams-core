@@ -13,27 +13,15 @@ import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
 import org.springframework.transaction.ReactiveTransactionManager
 
-/**
- * [H2 R2DBC 설정 방법]
- * - properties r2dbc 설정 추가
- * - java configuration class r2dbc 설정 추가
- * [H2 Table auth DDL]
- * - `resources > create-ams-table.sql` SQL 파일 생성
- * - SQL 파일에 `CREATE` 문 추가
- * [H2 file lock 에러 방지 - (미동작)]
- * - H2 host url 옵션 설정 추가
- * - `;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO`
- * - 위 옵션 추가하면 서버 구동 후 H2 console 접속 가능
- * - 하지만, H2 console 접속 후, API 요청하면 다시 `file lock` 에러 발생
- */
 @EnableR2dbcRepositories
 @Configuration
 class R2DBCConfig : AbstractR2dbcConfiguration() {
 
+    @Bean
     override fun connectionFactory(): ConnectionFactory =
         H2ConnectionConfiguration
             .builder()
-            .file("~/h2/ams;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO;MODE=MYSQL")
+            .tcp("localhost", "~/h2/ams")
             .username("admin")
             .password("admin1234")
             .build()
@@ -44,7 +32,7 @@ class R2DBCConfig : AbstractR2dbcConfiguration() {
         R2dbcTransactionManager(connectionFactory)
 
     @Bean
-    fun dbInitializer(): ConnectionFactoryInitializer =
+    fun dbInitializer(connectionFactory: ConnectionFactory): ConnectionFactoryInitializer =
         ConnectionFactoryInitializer()
             .apply {
                 this.setConnectionFactory(connectionFactory())
@@ -54,7 +42,7 @@ class R2DBCConfig : AbstractR2dbcConfiguration() {
     private fun setDatabasePopulator(): ResourceDatabasePopulator =
         ResourceDatabasePopulator()
             .apply {
-                this.addScript(ClassPathResource("create-ams-tables-h2.sql"))
+                this.addScript(ClassPathResource("query/create-ams-tables-h2.sql"))
                 this.setContinueOnError(true)
             }
 
