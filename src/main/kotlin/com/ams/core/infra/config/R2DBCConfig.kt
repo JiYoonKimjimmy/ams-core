@@ -3,6 +3,7 @@ package com.ams.core.infra.config
 import io.r2dbc.h2.H2ConnectionConfiguration
 import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.spi.ConnectionFactory
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
@@ -13,31 +14,36 @@ import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
 import org.springframework.transaction.ReactiveTransactionManager
 
+@EnableConfigurationProperties(R2DBCProperties::class)
 @EnableR2dbcRepositories
 @Configuration
-class R2DBCConfig : AbstractR2dbcConfiguration() {
+class R2DBCConfig(
+    val r2dbcProperties: R2DBCProperties
+) : AbstractR2dbcConfiguration() {
 
     @Bean
     override fun connectionFactory(): ConnectionFactory =
-        H2ConnectionConfiguration
-            .builder()
-            .tcp("localhost", "~/h2/ams")
-            .username("admin")
-            .password("admin1234")
-            .build()
-            .let { H2ConnectionFactory(it) }
-
-    @Bean
-    fun transactionManager(connectionFactory: ConnectionFactory): ReactiveTransactionManager =
-        R2dbcTransactionManager(connectionFactory)
+        H2ConnectionFactory(connectionConfiguration())
 
     @Bean
     fun dbInitializer(connectionFactory: ConnectionFactory): ConnectionFactoryInitializer =
         ConnectionFactoryInitializer()
             .apply {
-                this.setConnectionFactory(connectionFactory())
+                this.setConnectionFactory(connectionFactory)
                 this.setDatabasePopulator(setDatabasePopulator())
             }
+
+    @Bean
+    fun transactionManager(connectionFactory: ConnectionFactory): ReactiveTransactionManager =
+        R2dbcTransactionManager(connectionFactory)
+
+    private fun connectionConfiguration(): H2ConnectionConfiguration =
+        H2ConnectionConfiguration
+            .builder()
+            .tcp(r2dbcProperties.host, r2dbcProperties.path)
+            .username(r2dbcProperties.username)
+            .password(r2dbcProperties.password)
+            .build()
 
     private fun setDatabasePopulator(): ResourceDatabasePopulator =
         ResourceDatabasePopulator()
