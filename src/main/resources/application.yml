@@ -28,8 +28,6 @@ spring:
       on-profile: h2
   r2dbc:
     url: localhost:~/h2/ams
-#    host: localhost
-#    path: ~/h2/ams
     username: admin
     password: admin1234
 #  sql:
